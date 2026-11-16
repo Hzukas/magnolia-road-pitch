@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="description" content="Exclusive co-branded flower for Magnolia Road: Every Day Extraordinary, Rain Forest and Inferno.">
+<title>Only at Magnolia Road</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: three screen-height pages with scroll snap. Page 1 states the thesis; pages 2 and 3 are one
+   side-by-side comparison each, competitor on the left, our exclusive brand on the right, pricing inline.
+   Palette from the Magnolia Rd. mark (plum, leaf green, cream). */
+:root{
+  --bg:#120c18;
+  --bg-2:#1b1224;
+  --panel:#231730;
+  --panel-2:#2c1d3b;
+  --line:#3b2a4d;
+  --fg:#f3ead8;
+  --fg-2:#c9bcd6;
+  --muted:#8f7fa3;
+  --green:#7fc24a;
+  --purple:#8b5fc0;
+  --rose:#e07a8a;
+  --font-display:"Bricolage Grotesque","Inter",system-ui,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --bar:56px;
+  --gutter-l:max(16px,env(safe-area-inset-left,0px));
+  --gutter-r:max(16px,env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.02;letter-spacing:-.015em}
+p{margin:0}
+button{font:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r);width:100%}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.lede{color:var(--fg-2);max-width:60ch}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;height:var(--bar);background:rgba(18,12,24,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:14px;height:100%}
+.topbar img{height:42px;width:42px;flex:none;object-fit:contain}
+.topbar .brandline{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.topbar .brandline b{font-family:var(--font-display);font-weight:700;font-size:.95rem;white-space:nowrap}
+.topbar .brandline span{font-size:.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.pager{margin-left:auto;display:flex;align-items:center;gap:6px}
+.pager a{text-decoration:none;color:var(--fg-2);font-size:.8rem;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.pager a:hover,.pager a:focus-visible{background:var(--panel);color:var(--fg);outline:none}
+.pager a.num{display:none}
+@media (max-width:860px){.pager a.lbl{display:none}.pager a.num{display:inline-block;padding:7px 11px;border-color:var(--line)}}
+
+/* pages */
+.page{min-height:calc(100svh - var(--bar));scroll-snap-align:start;scroll-margin-top:var(--bar);display:flex;align-items:center;padding-block:clamp(20px,3vh,40px);border-bottom:1px solid var(--line)}
+.page:nth-child(even){background:var(--bg-2)}
+.page .wrap{display:grid;gap:clamp(16px,2.2vh,28px)}
+.pagehead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px 28px}
+.pagehead h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:800}
+.pagehead .lede{font-size:.95rem;max-width:46ch}
+.pagenum{font-size:.72rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+
+/* page 1 */
+#price-war{background:
+  radial-gradient(900px 420px at 90% 0%, rgba(139,95,192,.26), transparent 70%),
+  radial-gradient(700px 380px at 0% 100%, rgba(47,122,60,.2), transparent 70%),var(--bg)}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,4vw,48px);align-items:center}
+.hero img{width:clamp(120px,16vw,210px);height:auto;flex:none;filter:drop-shadow(0 16px 40px rgba(0,0,0,.5))}
+.hero h1{font-size:clamp(2.3rem,5.2vw,4.2rem);font-weight:800;margin-top:8px}
+.hero h1 em{font-style:normal;color:var(--green)}
+.hero .lede{margin-top:12px;font-size:clamp(.95rem,1.3vw,1.1rem)}
+@media (max-width:720px){.hero{grid-template-columns:1fr}.hero img{width:110px}}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.three{grid-template-columns:1fr}}
+.col{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:18px 20px;display:grid;gap:10px;align-content:start;min-width:0}
+.col .kicker{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.col h3{font-size:1.25rem;font-weight:800}
+.col ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;color:var(--fg-2);font-size:.92rem}
+.col li{display:grid;grid-template-columns:16px 1fr;gap:9px;align-items:start}
+.col li svg{margin-top:4px}
+.col.goal{border-color:rgba(127,194,74,.5);background:linear-gradient(180deg,rgba(127,194,74,.1),transparent 65%),var(--panel)}
+.col.goal .kicker{color:var(--green)}
+.col.bad h3{color:var(--rose)}
+.logos{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.logos img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid var(--line);background:#000}
+.logos span{font-size:.8rem;color:var(--muted)}
+
+/* comparison pages: competitor block on top, our brand below, same columns in both */
+.stack{display:grid;gap:14px}
+.bb{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:clamp(14px,2vw,22px);display:grid;gap:14px;min-width:0}
+.bb.theirs{border-color:var(--rose);box-shadow:inset 0 0 0 1px rgba(224,122,138,.25)}
+.bb.ours{border-color:var(--green);box-shadow:inset 0 0 0 1px rgba(127,194,74,.25);background:linear-gradient(180deg,rgba(127,194,74,.07),transparent 40%),var(--panel)}
+.attr.lose{border-color:rgba(224,122,138,.45)}
+.attr.win{border-color:rgba(127,194,74,.5)}
+.reveal-wrap{display:grid;gap:14px}
+.reveal-wrap[hidden]{display:none!important}
+.reveal{justify-self:center;display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;border:2px solid var(--green);background:rgba(127,194,74,.12);color:var(--fg);font-family:var(--font-display);font-weight:800;font-size:1.05rem;cursor:pointer}
+.reveal:hover,.reveal:focus-visible{background:var(--green);color:#0f1a0a;outline:none}
+.reveal svg{transition:transform .2s}
+.reveal[aria-expanded="true"] svg{transform:rotate(180deg)}
+.reveal[aria-expanded="true"]{background:transparent;color:var(--fg-2);border-color:var(--line);font-size:.85rem;padding:8px 16px;font-weight:600}
+.bb-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.bb-head img.round{width:clamp(72px,8vw,96px);height:clamp(72px,8vw,96px);border-radius:50%;object-fit:cover;border:1px solid var(--line);background:#000;flex:none}
+.bb-head .name{display:grid;gap:5px;min-width:0}
+.bb-head .row{display:flex;align-items:baseline;gap:6px 18px;flex-wrap:wrap}
+.bb-head .spec{display:inline-flex;align-items:baseline;gap:10px;font-family:var(--font-display);font-size:clamp(1.15rem,1.9vw,1.5rem);font-weight:700;letter-spacing:-.005em;color:var(--fg);white-space:nowrap;line-height:1.1}
+.bb-head .spec > span:first-child{color:#e3b64c}
+.bb-head .spec i{font-style:normal;color:var(--muted);font-weight:400}
+.bb-head .kicker{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.bb.ours .bb-head .kicker{color:var(--green)}
+.bb-head b{font-family:var(--font-display);font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:800;line-height:1.05}
+.bb-head .right{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.label{display:grid;place-items:center;background:#000;border-radius:12px;border:1px solid var(--line);overflow:visible;padding:6px}
+.label img{display:block;width:auto;height:auto;max-width:100%;max-height:min(52vh,480px);object-fit:contain}
+.label .ph{display:grid;justify-items:center;text-align:center;gap:8px;padding:clamp(28px,6vh,56px) 20px;width:100%;background:radial-gradient(ellipse at 50% 120%,rgba(127,194,74,.18),transparent 60%),#000}
+.label .ph b{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.4rem);font-weight:800;letter-spacing:-.01em;color:var(--fg);line-height:1}
+.label .ph span{font-size:.78rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.label .ph .kicker{color:var(--green);font-weight:700}
+.label .ph[hidden]{display:none!important}
+.pagehead h2 .t-or{color:var(--muted);font-weight:600;font-size:.6em;margin:0 .1em;vertical-align:middle}
+.pill{display:inline-flex;width:max-content;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill.ours{background:rgba(127,194,74,.14);border-color:var(--green);color:var(--green)}
+.pill.theirs{background:rgba(224,122,138,.12);border-color:var(--rose);color:var(--rose)}
+.attrs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pricing{display:grid;grid-template-columns:1fr 1fr 1.3fr 1.7fr;gap:8px}
+@media (max-width:980px){.attrs{grid-template-columns:repeat(2,1fr)}.pricing{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.attrs{grid-template-columns:1fr}}
+.attr{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:5px;align-content:start;min-width:0}
+.attr > .t{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#b99ee3;padding-bottom:6px;border-bottom:1px solid var(--line);margin-bottom:2px;line-height:1.3}
+.attr > b{font-size:1.02rem;font-weight:600;color:var(--fg);line-height:1.3}
+.attrs .attr{grid-template-rows:auto 1fr;padding:8px 12px;gap:4px}
+.attrs .attr > b{text-align:center;align-self:center;padding:0;line-height:1.2}
+.pagehead h2 .t-theirs{color:#f0943a}
+.pagehead h2 .t-ours{color:var(--green)}
+.pagehead h2 .t-vs{color:var(--muted);font-weight:600;font-size:.6em;margin:0 .15em;vertical-align:middle}
+[contenteditable="true"]{cursor:text;border-radius:4px;outline:none;min-width:2ch}
+[contenteditable="true"]:hover{box-shadow:0 0 0 1px var(--muted);background:rgba(255,255,255,.03)}
+[contenteditable="true"]:focus{box-shadow:0 0 0 2px var(--green);background:rgba(127,194,74,.08)}
+.editbar{position:fixed;z-index:20;display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--panel-2);border:1px solid var(--line);border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.editbar[hidden]{display:none!important}
+.editbar .lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 4px}
+.editbar button{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.18);padding:0;cursor:pointer;background:var(--sw)}
+.editbar button:hover,.editbar button:focus-visible{border-color:#fff;outline:none}
+.editbar button.default{background:conic-gradient(var(--fg) 0 50%,var(--bg) 50% 100%)}
+.editbar label{position:relative;width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.18);background:conic-gradient(#e07a8a,#e3b64c,#7fc24a,#4cc3e3,#8b5fc0,#e07a8a);cursor:pointer;overflow:hidden}
+.editbar label:hover{border-color:#fff}
+.editbar input[type="color"]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
+.attr.lose > b{color:var(--rose)}
+.attr.win > b{color:var(--green)}
+.bb.ours .attr{background:rgba(18,12,24,.7)}
+.sizes{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.sizes button{background:transparent;border:0;color:var(--fg-2);padding:5px 11px;font-size:.74rem;font-weight:700;cursor:pointer}
+.sizes button[aria-pressed="true"]{background:var(--green);color:#0f1a0a}
+.sizes button:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+.money{display:flex;align-items:center;background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:0 10px;width:100%}
+.money:focus-within{border-color:var(--green);box-shadow:0 0 0 3px rgba(127,194,74,.2)}
+.money span{color:var(--muted);font-weight:600;font-size:.9rem}
+.money input{flex:1;min-width:0;width:100%;background:transparent;border:0;color:var(--fg);font:600 1.1rem var(--font-body);font-variant-numeric:tabular-nums;padding:8px 6px;outline:none;-moz-appearance:textfield}
+.money input::-webkit-outer-spin-button,.money input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.big{font-family:var(--font-display);font-size:1.9rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.01em;line-height:1;color:var(--fg)}
+.bb.ours .big{color:var(--green)}
+.sub{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:10px;border-radius:999px;background:var(--panel-2);overflow:hidden;display:flex;width:100%;margin-top:6px}
+.bar i{display:block;height:100%}
+.bar .c{background:var(--muted)}
+.bar .m{background:var(--purple)}
+.bb.ours .bar .m{background:var(--green)}
+.verdict{border:1px solid rgba(127,194,74,.4);border-radius:12px;background:rgba(127,194,74,.1);padding:14px 18px;display:grid;gap:6px}
+.verdict b{font-family:var(--font-display);font-size:1.15rem;font-weight:800;color:var(--green)}
+.verdict span{font-size:.95rem;color:var(--fg);line-height:1.45}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-size:.78rem;color:var(--muted)}
+.foot button{background:none;border:0;color:var(--fg-2);text-decoration:underline;cursor:pointer;padding:0;font-size:.78rem}
+.foot button:focus-visible{outline:2px solid var(--green);border-radius:3px}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <img src="img/mr-logo.png" alt="Magnolia Rd. Cannabis Co." width="529" height="529">
+    <div class="brandline"><b>Only at Magnolia Road</b><span>Exclusive brand proposal</span></div>
+    <nav class="pager" aria-label="Pages">
+      <a class="lbl" href="#price-war">1 · Escaping the price war</a>
+      <a class="lbl" href="#every-day-extraordinary">2 · Summit vs Every Day Extraordinary</a>
+      <a class="lbl" href="#quarter">3 · Dro vs Rain Forest / Inferno</a>
+      <a class="num" href="#price-war">1</a><a class="num" href="#every-day-extraordinary">2</a><a class="num" href="#quarter">3</a>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE 1 -->
+<section class="page" id="price-war">
+  <div class="wrap">
+    <div class="hero">
+      <img src="img/mr-logo.png" alt="Magnolia Rd. Cannabis Co. emblem" width="529" height="529">
+      <div>
+        <p class="eyebrow">Page 1 of 3 · Prepared for Magnolia Road Cannabis Co.</p>
+        <h1>Escaping the <em>price war.</em></h1>
+        <p class="lede">Two co-branded flower lines sold only at Magnolia Road, matched to the two SKUs your customers already buy, so the sale can't be price-shopped away to another store.</p>
+      </div>
+    </div>
+    <div class="three">
+      <div class="col">
+        <span class="kicker">Current tactic</span>
+        <h3>Carry the brands everyone carries</h3>
+        <div class="logos"><img src="img/summit-logo.png" alt="Summit" width="225" height="225"><img src="img/dro-logo.jpg" alt="Dro" width="410" height="413"><span>and most of the rest of the case</span></div>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/></svg><span>Summit, Dro and the rest are stocked by most dispensaries in the state</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/></svg><span>Every shop lists them on Weedmaps, Leafly and Dutchie, sortable by price</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/></svg><span>The brand earns the loyalty. Magnolia Road is only where it was bought today</span></li>
+        </ul>
+      </div>
+      <div class="col bad">
+        <span class="kicker">What it costs you</span>
+        <h3>A price war you can't win on margin</h3>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>The customer compares the same bag across a dozen menus before picking a store</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>Whoever discounts hardest this week sets your ceiling and takes the sale</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>You win only on the days you are the cheapest, and the margin goes with it</span></li>
+        </ul>
+      </div>
+      <div class="col goal">
+        <span class="kicker">The goal</span>
+        <h3>Create captive customers</h3>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--green)"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>Two exclusive brands with "Only at Magnolia Road" printed on the label</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--green)"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>No other menu carries them, so there is nothing to price-shop against</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--green)"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>Convert today's Summit and Dro buyers into customers who come back for yours</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page" id="every-day-extraordinary">
+  <div class="wrap">
+    <div class="pagehead">
+      <div><p class="pagenum">Page 2 of 3 · Brand one · Half ounce, value tier</p><h2><span class="t-theirs">Summit</span> <span class="t-vs">vs</span> <span class="t-ours">Every Day Extraordinary</span></h2></div>
+      <p class="lede">Same customer, same shelf slot, same small-bud half ounce. One can be bought anywhere. One only here.</p>
+    </div>
+    <div class="stack">
+      <div class="bb theirs">
+        <div class="bb-head">
+          <img class="round" src="img/summit-logo.png" alt="Summit" width="225" height="225">
+          <div class="name"><span class="kicker">What they buy today</span><div class="row"><b>Summit</b><span class="spec"><span>14 g half oz</span><i>·</i><span>Small buds</span></span></div></div>
+          <div class="right"><span class="pill theirs">Sold statewide</span></div>
+        </div>
+        <div class="attrs">
+          <div class="attr lose"><span class="t">Where it's sold</span><b>Most dispensaries in Colorado</b></div>
+          <div class="attr lose"><span class="t">Price-shoppable online</span><b>Yes, on every menu app</b></div>
+          <div class="attr lose"><span class="t">Who sets the price</span><b>Competitor promos</b></div>
+          <div class="attr lose"><span class="t">Loyalty goes to</span><b>The brand</b></div>
+        </div>
+        <div class="pricing">
+          <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="summit14-cost" data-sku="summit14" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Summit purchase price"></div></div>
+          <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="summit14-otd" data-sku="summit14" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Summit out-the-door price"></div></div>
+          <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="summit14:pct">—</span><span class="sub" data-out="summit14:m"></span></div>
+          <div class="attr"><span class="t">Cost vs margin</span><span class="sub" data-out="summit14:pg"></span><div class="bar"><i class="c" data-bar="summit14:c"></i><i class="m" data-bar="summit14:m"></i></div></div>
+        </div>
+      </div>
+
+      <button type="button" class="reveal" aria-expanded="false" aria-controls="ede-reveal" data-reveal="ede-reveal" data-show="Reveal the Magnolia Road alternative" data-hide="Hide Every Day Extraordinary"><span>Reveal the Magnolia Road alternative</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l5 5 5-5"/></svg></button>
+      <div class="reveal-wrap" id="ede-reveal" hidden>
+      <div class="bb ours">
+        <div class="label"><img src="img/ede.jpg" alt="Every Day Extraordinary label: gold engraved mountains, half ounce, 14 grams, only at Magnolia Road" width="1400" height="467"></div>
+        <div class="bb-head">
+          <div class="name"><span class="kicker">What they buy instead</span><div class="row"><b>Every Day Extraordinary</b><span class="spec"><span data-size-label>14 g half oz</span><i>·</i><span>Small buds, same grade</span></span></div></div>
+          <div class="right"><span class="sizes" role="group" aria-label="Every Day Extraordinary size"><button type="button" data-size="14" aria-pressed="true">14 g</button><button type="button" data-size="28" aria-pressed="false">28 g</button></span><span class="pill ours">Only at Magnolia Road</span></div>
+        </div>
+        <div class="attrs">
+          <div class="attr win"><span class="t">Where it's sold</span><b>Magnolia Road only</b></div>
+          <div class="attr win"><span class="t">Price-shoppable online</span><b>No. Nothing to compare it to</b></div>
+          <div class="attr win"><span class="t">Who sets the price</span><b>Magnolia Road</b></div>
+          <div class="attr win"><span class="t">Loyalty goes to</span><b>Magnolia Road</b></div>
+        </div>
+        <div class="pricing">
+          <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="ede-cost" data-sku="ede" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Every Day Extraordinary purchase price"></div></div>
+          <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="ede-otd" data-sku="ede" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Every Day Extraordinary out-the-door price"></div></div>
+          <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="ede:pct">—</span><span class="sub" data-out="ede:m"></span></div>
+          <div class="attr"><span class="t">Cost vs margin</span><span class="sub" data-out="ede:pg"></span><div class="bar"><i class="c" data-bar="ede:c"></i><i class="m" data-bar="ede:m"></i></div></div>
+        </div>
+      </div>
+
+      <div class="verdict"><b>Same half ounce. Same customer. Only one of them can be price-shopped.</b><span>Summit is on every menu app in Colorado, so its price is set by whoever runs the deepest promo. Every Day Extraordinary is sold at Magnolia Road and nowhere else: a direct, better alternative with nothing online to compare it to, and the first step toward not needing Summit on the shelf at all.</span></div>
+      </div>
+    </div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Click any tile title or text to edit it.</span><button type="button" data-reset>Reset figures and text</button></div>
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page" id="quarter">
+  <div class="wrap">
+    <div class="pagehead">
+      <div><p class="pagenum">Page 3 of 3 · Brand two · Quarter ounce, premium tier</p><h2><span class="t-theirs">Dro</span> <span class="t-vs">vs</span> <span class="t-ours">Rain Forest <span class="t-or">or</span> Inferno</span></h2></div>
+      <p class="lede">The top-shelf quarter for the customer who pays for premium flower. Two exclusive brands, one price. Dro is on every menu. Rain Forest and Inferno are on yours.</p>
+    </div>
+    <div class="stack">
+      <div class="bb theirs">
+        <div class="bb-head">
+          <img class="round" src="img/dro-logo.jpg" alt="Dro" width="410" height="413">
+          <div class="name"><span class="kicker">What they buy today</span><div class="row"><b>Dro</b><span class="spec"><span>7 g quarter oz</span><i>·</i><span>Premium flower</span></span></div></div>
+          <div class="right"><span class="pill theirs">Sold statewide</span></div>
+        </div>
+        <div class="attrs">
+          <div class="attr lose"><span class="t">Where it's sold</span><b>Most dispensaries in Colorado</b></div>
+          <div class="attr lose"><span class="t">Price-shoppable online</span><b>Yes, on every menu app</b></div>
+          <div class="attr lose"><span class="t">Who sets the price</span><b>Competitor promos</b></div>
+          <div class="attr lose"><span class="t">Loyalty goes to</span><b>The brand</b></div>
+        </div>
+        <div class="pricing">
+          <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="dro7-cost" data-sku="dro7" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Dro purchase price"></div></div>
+          <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="dro7-otd" data-sku="dro7" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Dro out-the-door price"></div></div>
+          <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="dro7:pct">—</span><span class="sub" data-out="dro7:m"></span></div>
+          <div class="attr"><span class="t">Cost vs margin</span><span class="sub" data-out="dro7:pg"></span><div class="bar"><i class="c" data-bar="dro7:c"></i><i class="m" data-bar="dro7:m"></i></div></div>
+        </div>
+      </div>
+
+      <button type="button" class="reveal" aria-expanded="false" aria-controls="og-reveal" data-reveal="og-reveal" data-show="Reveal the Magnolia Road alternative" data-hide="Hide Rain Forest / Inferno"><span>Reveal the Magnolia Road alternative</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l5 5 5-5"/></svg></button>
+      <div class="reveal-wrap" id="og-reveal" hidden>
+      <div class="bb ours">
+        <div class="label"><img data-brand-img alt="" hidden><div class="ph" data-brand-ph><span class="kicker">Label coming</span><b>Rain Forest</b><span>Quarter ounce · 7 g · Only at Magnolia Road</span></div></div>
+        <div class="bb-head">
+          <div class="name"><span class="kicker">What they buy instead</span><div class="row"><b data-brand-name>Rain Forest</b><span class="spec"><span>7 g quarter oz</span><i>·</i><span>Premium flower, same tier</span></span></div></div>
+          <div class="right"><span class="sizes" role="group" aria-label="Quarter ounce brand"><button type="button" data-brand="rainforest" aria-pressed="true">Rain Forest</button><button type="button" data-brand="inferno" aria-pressed="false">Inferno</button></span><span class="pill ours">Only at Magnolia Road</span></div>
+        </div>
+        <div class="attrs">
+          <div class="attr win"><span class="t">Where it's sold</span><b>Magnolia Road only</b></div>
+          <div class="attr win"><span class="t">Price-shoppable online</span><b>No. Nothing to compare it to</b></div>
+          <div class="attr win"><span class="t">Who sets the price</span><b>Magnolia Road</b></div>
+          <div class="attr win"><span class="t">Loyalty goes to</span><b>Magnolia Road</b></div>
+        </div>
+        <div class="pricing">
+          <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="alt7-cost" data-sku="alt7" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Rain Forest or Inferno purchase price"></div></div>
+          <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="alt7-otd" data-sku="alt7" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Rain Forest or Inferno out-the-door price"></div></div>
+          <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="alt7:pct">—</span><span class="sub" data-out="alt7:m"></span></div>
+          <div class="attr"><span class="t">Cost vs margin</span><span class="sub" data-out="alt7:pg"></span><div class="bar"><i class="c" data-bar="alt7:c"></i><i class="m" data-bar="alt7:m"></i></div></div>
+        </div>
+      </div>
+
+      <div class="verdict"><b>Same quarter. Same customer. Only one of them can be price-shopped.</b><span>Dro is listed everywhere, so the market sets its price. Rain Forest and Inferno are sold at Magnolia Road and nowhere else: two exclusive alternatives at one price, with nothing online to compare them to, and a path to retiring Dro from the shelf altogether.</span></div>
+      </div>
+    </div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Click any tile title or text to edit it.</span><button type="button" data-reset>Reset figures and text</button></div>
+  </div>
+</section>
+
+<div class="editbar" id="editbar" hidden role="toolbar" aria-label="Text color">
+  <span class="lbl">Color</span>
+  <button type="button" class="default" data-color="" title="Default"></button>
+  <button type="button" data-color="#f3ead8" style="--sw:#f3ead8" title="Cream"></button>
+  <button type="button" data-color="#7fc24a" style="--sw:#7fc24a" title="Green"></button>
+  <button type="button" data-color="#e07a8a" style="--sw:#e07a8a" title="Red"></button>
+  <button type="button" data-color="#e3b64c" style="--sw:#e3b64c" title="Gold"></button>
+  <button type="button" data-color="#4cc3e3" style="--sw:#4cc3e3" title="Aqua"></button>
+  <button type="button" data-color="#b99ee3" style="--sw:#b99ee3" title="Lilac"></button>
+  <button type="button" data-color="#8f7fa3" style="--sw:#8f7fa3" title="Muted"></button>
+  <label title="Custom color"><input type="color" id="customColor" value="#f3ead8" aria-label="Custom color"></label>
+</div>
+<script>
+(function(){
+  function calc(cost, otd){
+    if(cost === '' || cost == null || otd === '' || otd == null) return null;
+    cost = Number(cost); otd = Number(otd);
+    if(!isFinite(cost) || !isFinite(otd) || otd <= 0 || cost < 0) return null;
+    var m = otd - cost;
+    return { m: m, pct: m / otd };
+  }
+  window.__calcMargin = calc;
+
+  var DEFAULTS = {
+    ede14:    { cost:20, otd:42 },
+    ede28:    { cost:40, otd:84 },
+    summit14: { cost:20, otd:45 },
+    alt7:     { cost:17.25, otd:40 },
+    dro7:     { cost:18.75, otd:40 }
+  };
+  var GRAMS = { ede14:14, ede28:28, summit14:14, alt7:7, dro7:7 };
+  var BRANDS = { rainforest:{ name:'Rain Forest', img:'img/rainforest.jpg', w:1400, h:525 }, inferno:{ name:'Inferno', img:'img/inferno.jpg', w:1400, h:525 } };
+  var KEY = 'mr-pricing-v3';
+  var usd2 = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2});
+  var pctF = function(p){ return (p*100).toFixed(1) + '%'; };
+
+  var vals, edeSize, brand;
+  function load(){
+    try{ var raw = localStorage.getItem(KEY); if(raw){ var o = JSON.parse(raw); if(o && o.vals){ vals = o.vals; edeSize = o.edeSize === '28' ? '28' : '14'; brand = BRANDS[o.brand] ? o.brand : 'rainforest'; return; } } }catch(e){}
+    reset();
+  }
+  function reset(){ vals = JSON.parse(JSON.stringify(DEFAULTS)); edeSize = '14'; brand = 'rainforest'; }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify({ vals: vals, edeSize: edeSize, brand: brand })); }catch(e){} }
+  function key(sku){ return sku === 'ede' ? 'ede' + edeSize : sku; }
+
+  function fill(){
+    document.querySelectorAll('input[data-sku]').forEach(function(i){
+      var v = vals[key(i.dataset.sku)] || {};
+      i.value = v[i.dataset.f] == null ? '' : v[i.dataset.f];
+    });
+    document.querySelectorAll('[data-size]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.size === edeSize)); });
+    var lbl = document.querySelector('[data-size-label]');
+    if(lbl) lbl.textContent = edeSize === '28' ? '28 g full oz' : '14 g half oz';
+    var B = BRANDS[brand];
+    document.querySelectorAll('[data-brand]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.brand === brand)); });
+    document.querySelectorAll('[data-brand-name]').forEach(function(e){ e.textContent = B.name; });
+    var img = document.querySelector('[data-brand-img]'), ph = document.querySelector('[data-brand-ph]');
+    if(img){ if(B.img){ img.src = B.img; img.width = B.w; img.height = B.h; img.alt = B.name + ' label, quarter ounce, 7 grams, only at Magnolia Road'; img.hidden = false; } else { img.removeAttribute('src'); img.hidden = true; } }
+    if(ph){ ph.hidden = !!B.img; ph.querySelector('b').textContent = B.name; }
+  }
+
+  function setText(sel, txt){ document.querySelectorAll('[data-out="'+sel+'"]').forEach(function(e){ e.textContent = txt; }); }
+  function setBar(sel, w){ document.querySelectorAll('[data-bar="'+sel+'"]').forEach(function(e){ e.style.width = w + '%'; }); }
+
+  function renderSku(sku){
+    var k = key(sku), v = vals[k] || {};
+    var r = calc(v.cost, v.otd);
+    if(!r){ setText(sku+':pct','—'); setText(sku+':m',''); setText(sku+':pg',''); setBar(sku+':c',0); setBar(sku+':m',0); return null; }
+    setText(sku+':pct', pctF(r.pct));
+    setText(sku+':m', usd2.format(r.m) + ' per unit');
+    setText(sku+':pg', usd2.format(Number(v.otd) / GRAMS[k]) + ' per gram out the door');
+    var mp = Math.max(0, Math.min(100, r.pct*100));
+    setBar(sku+':c', 100-mp); setBar(sku+':m', mp);
+    return r;
+  }
+
+  function render(){
+    renderSku('ede'); renderSku('summit14'); renderSku('alt7'); renderSku('dro7');
+    save();
+  }
+
+  load(); fill(); render();
+
+  document.querySelectorAll('input[data-sku]').forEach(function(i){
+    i.addEventListener('input', function(){
+      var k = key(i.dataset.sku); if(!vals[k]) vals[k] = {};
+      vals[k][i.dataset.f] = i.value; render();
+    });
+  });
+  document.querySelectorAll('[data-size]').forEach(function(b){
+    b.addEventListener('click', function(){ edeSize = b.dataset.size; fill(); render(); });
+  });
+  document.querySelectorAll('[data-brand]').forEach(function(b){
+    b.addEventListener('click', function(){ brand = b.dataset.brand; fill(); render(); });
+  });
+  /* click-to-edit text on the attribute tiles and tile titles, saved in this browser */
+  var TKEY = 'mr-text-v1', texts = {}, originals = {};
+  try{ texts = JSON.parse(localStorage.getItem(TKEY) || '{}') || {}; }catch(e){ texts = {}; }
+  function saveTexts(){ try{ localStorage.setItem(TKEY, JSON.stringify(texts)); }catch(e){} }
+  document.querySelectorAll('.page').forEach(function(pg){
+    var n = 0;
+    pg.querySelectorAll('.attr > .t, .attrs .attr > b, .bb-head .spec > span:not([data-size-label]), .verdict > b, .verdict > span').forEach(function(el){
+      var k = pg.id + ':' + (n++);
+      el.dataset.edit = k; originals[k] = el.textContent;
+      if(texts[k] != null) el.textContent = texts[k];
+      el.contentEditable = 'true'; el.spellcheck = false; el.title = 'Click to edit';
+      el.addEventListener('input', function(){ texts[k] = el.textContent; saveTexts(); });
+      el.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); el.blur(); } });
+      el.addEventListener('paste', function(e){
+        e.preventDefault();
+        var t = (e.clipboardData || window.clipboardData).getData('text');
+        document.execCommand('insertText', false, t.replace(/\s+/g, ' '));
+      });
+    });
+  });
+  /* text color palette, shown while an editable element has focus */
+  var CKEY = 'mr-color-v1', colors = {};
+  try{ colors = JSON.parse(localStorage.getItem(CKEY) || '{}') || {}; }catch(e){ colors = {}; }
+  function saveColors(){ try{ localStorage.setItem(CKEY, JSON.stringify(colors)); }catch(e){} }
+  document.querySelectorAll('[data-edit]').forEach(function(el){ if(colors[el.dataset.edit]) el.style.color = colors[el.dataset.edit]; });
+
+  var bar = document.getElementById('editbar'), current = null;
+  function placeBar(){
+    if(!current) return;
+    var r = current.getBoundingClientRect(), bw = bar.offsetWidth || 300, bh = bar.offsetHeight || 36;
+    var top = r.top - bh - 8; if(top < 8) top = r.bottom + 8;
+    var left = Math.max(8, Math.min(r.left, window.innerWidth - bw - 8));
+    bar.style.top = top + 'px'; bar.style.left = left + 'px';
+  }
+  function showBar(el){ current = el; bar.hidden = false; placeBar(); }
+  function hideBar(){ current = null; bar.hidden = true; }
+  function applyColor(c){
+    if(!current) return;
+    var k = current.dataset.edit;
+    if(c){ current.style.color = c; colors[k] = c; } else { current.style.color = ''; delete colors[k]; }
+    saveColors();
+  }
+  document.addEventListener('focusin', function(e){
+    var el = e.target.closest ? e.target.closest('[data-edit]') : null;
+    if(el) showBar(el);
+  });
+  document.addEventListener('focusout', function(e){
+    var to = e.relatedTarget;
+    if(to && (bar.contains(to) || (to.closest && to.closest('[data-edit]')))) return;
+    setTimeout(function(){ if(!bar.contains(document.activeElement) && !(document.activeElement && document.activeElement.closest('[data-edit]'))) hideBar(); }, 120);
+  });
+  bar.addEventListener('mousedown', function(e){ if(e.target.tagName !== 'INPUT') e.preventDefault(); });
+  bar.querySelectorAll('button[data-color]').forEach(function(b){
+    b.addEventListener('click', function(){ applyColor(b.dataset.color); });
+  });
+  var custom = document.getElementById('customColor');
+  custom.addEventListener('input', function(){ applyColor(custom.value); });
+  custom.addEventListener('change', function(){ applyColor(custom.value); if(current) current.focus(); });
+  window.addEventListener('scroll', placeBar, true);
+  window.addEventListener('resize', placeBar);
+
+  function resetTexts(){
+    texts = {}; colors = {};
+    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); }catch(e){}
+    document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; });
+  }
+  document.querySelectorAll('[data-reset]').forEach(function(b){
+    b.addEventListener('click', function(){ reset(); fill(); render(); resetTexts(); });
+  });
+  document.querySelectorAll('[data-reveal]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var box = document.getElementById(b.dataset.reveal);
+      var open = box.hidden;
+      box.hidden = !open;
+      b.setAttribute('aria-expanded', String(open));
+      b.querySelector('span').textContent = open ? b.dataset.hide : b.dataset.show;
+      if(open && box.scrollIntoView){ box.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
