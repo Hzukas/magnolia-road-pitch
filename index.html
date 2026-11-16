@@ -62,8 +62,12 @@ button{font:inherit}
 .page:nth-child(even){background:var(--bg-2)}
 .page .wrap{display:grid;gap:clamp(16px,2.2vh,28px)}
 .pagehead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px 28px}
-.pagehead h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:800}
-.pagehead .lede{font-size:.95rem;max-width:46ch}
+.float{position:sticky;top:var(--bar);z-index:5;margin:6px calc(-1*var(--gutter-r)) 6px calc(-1*var(--gutter-l));padding:10px var(--gutter-r) 10px var(--gutter-l);background:rgba(18,12,24,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:0 0 12px 12px;box-shadow:0 10px 24px -18px rgba(0,0,0,.9)}
+.float h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:800;line-height:1.1;margin:0}
+.float h2 .t-reveal[hidden]{display:none}
+.page > .wrap > .pagenum{margin-bottom:0}
+.page > .wrap > .lede{font-size:.95rem;max-width:60ch;margin:4px 0 12px}
+.reveal-wrap{scroll-margin-top:calc(var(--bar) + 76px)}
 .pagenum{font-size:.72rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
 
 /* page 1 */
@@ -123,7 +127,7 @@ button{font:inherit}
 .label .ph span{font-size:.78rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .label .ph .kicker{color:var(--green);font-weight:700}
 .label .ph[hidden]{display:none!important}
-.pagehead h2 .t-or{color:var(--muted);font-weight:600;font-size:.6em;margin:0 .1em;vertical-align:middle}
+.float h2 .t-or{color:var(--muted);font-weight:600;font-size:.6em;margin:0 .1em;vertical-align:middle}
 .pill{display:inline-flex;width:max-content;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
 .pill.ours{background:rgba(127,194,74,.14);border-color:var(--green);color:var(--green)}
 .pill.theirs{background:rgba(224,122,138,.12);border-color:var(--rose);color:var(--rose)}
@@ -136,9 +140,9 @@ button{font:inherit}
 .attr > b{font-size:1.02rem;font-weight:600;color:var(--fg);line-height:1.3}
 .attrs .attr{grid-template-rows:auto 1fr;padding:8px 12px;gap:4px}
 .attrs .attr > b{text-align:center;align-self:center;padding:0;line-height:1.2}
-.pagehead h2 .t-theirs{color:#f0943a}
-.pagehead h2 .t-ours{color:var(--green)}
-.pagehead h2 .t-vs{color:var(--muted);font-weight:600;font-size:.6em;margin:0 .15em;vertical-align:middle}
+.float h2 .t-theirs{color:#f0943a}
+.float h2 .t-ours{color:var(--green)}
+.float h2 .t-vs{color:var(--muted);font-weight:600;font-size:.6em;margin:0 .15em;vertical-align:middle}
 [contenteditable="true"]{cursor:text;border-radius:4px;outline:none;min-width:2ch}
 [contenteditable="true"]:hover{box-shadow:0 0 0 1px var(--muted);background:rgba(255,255,255,.03)}
 [contenteditable="true"]:focus{box-shadow:0 0 0 2px var(--green);background:rgba(127,194,74,.08)}
@@ -240,10 +244,9 @@ button{font:inherit}
 <!-- PAGE 2 -->
 <section class="page" id="every-day-extraordinary">
   <div class="wrap">
-    <div class="pagehead">
-      <div><p class="pagenum">Page 2 of 3 · Brand one · Half ounce, value tier</p><h2><span class="t-theirs">Summit</span> <span class="t-vs">vs</span> <span class="t-ours">Every Day Extraordinary</span></h2></div>
-      <p class="lede">Same customer, same shelf slot, same small-bud half ounce. One can be bought anywhere. One only here.</p>
-    </div>
+    <p class="pagenum">Page 2 of 3 · Brand one · Half ounce, value tier</p>
+    <div class="float"><h2><span class="t-theirs">Summit</span><span class="t-reveal" data-reveal-title="ede-reveal" hidden> <span class="t-vs">vs</span> <span class="t-ours">Every Day Extraordinary</span></span></h2></div>
+    <p class="lede">Same customer, same shelf slot, same small-bud half ounce. One can be bought anywhere. One only here.</p>
     <div class="stack">
       <div class="bb theirs">
         <div class="bb-head">
@@ -297,10 +300,9 @@ button{font:inherit}
 <!-- PAGE 3 -->
 <section class="page" id="quarter">
   <div class="wrap">
-    <div class="pagehead">
-      <div><p class="pagenum">Page 3 of 3 · Brand two · Quarter ounce, premium tier</p><h2><span class="t-theirs">Dro</span> <span class="t-vs">vs</span> <span class="t-ours">Rain Forest <span class="t-or">or</span> Inferno</span></h2></div>
-      <p class="lede">The top-shelf quarter for the customer who pays for premium flower. Two exclusive brands, one price. Dro is on every menu. Rain Forest and Inferno are on yours.</p>
-    </div>
+    <p class="pagenum">Page 3 of 3 · Brand two · Quarter ounce, premium tier</p>
+    <div class="float"><h2><span class="t-theirs">Dro</span><span class="t-reveal" data-reveal-title="og-reveal" hidden> <span class="t-vs">vs</span> <span class="t-ours">Rain Forest <span class="t-or">or</span> Inferno</span></span></h2></div>
+    <p class="lede">The top-shelf quarter for the customer who pays for premium flower. Two exclusive brands, one price. Dro is on every menu. Rain Forest and Inferno are on yours.</p>
     <div class="stack">
       <div class="bb theirs">
         <div class="bb-head">
@@ -522,6 +524,7 @@ button{font:inherit}
       box.hidden = !open;
       b.setAttribute('aria-expanded', String(open));
       b.querySelector('span').textContent = open ? b.dataset.hide : b.dataset.show;
+      document.querySelectorAll('[data-reveal-title="' + b.dataset.reveal + '"]').forEach(function(t){ t.hidden = !open; });
       if(open && box.scrollIntoView){ box.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
