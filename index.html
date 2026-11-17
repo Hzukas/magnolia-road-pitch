@@ -56,6 +56,13 @@ button{font:inherit}
 .pager a:hover,.pager a:focus-visible{background:var(--panel);color:var(--fg);outline:none}
 .pager a.num{display:none}
 @media (max-width:860px){.pager a.lbl{display:none}.pager a.num{display:inline-block;padding:7px 11px;border-color:var(--line)}}
+.lock{flex:none;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg-2);font:inherit;font-size:.78rem;font-weight:700;cursor:pointer;line-height:1}
+.lock:hover,.lock:focus-visible{color:var(--fg);background:var(--panel);outline:none}
+.lock .i-open{display:none}
+.lock[aria-pressed="true"]{border-color:var(--green);color:var(--green);background:rgba(127,194,74,.12)}
+.lock[aria-pressed="true"] .i-locked{display:none}
+.lock[aria-pressed="true"] .i-open{display:inline}
+@media (max-width:520px){.lock span{display:none}.lock{padding:7px 9px}}
 
 /* pages */
 .page{min-height:calc(100svh - var(--bar));scroll-snap-align:start;scroll-margin-top:var(--bar);display:flex;align-items:center;padding-block:clamp(20px,3vh,40px);border-bottom:1px solid var(--line)}
@@ -91,6 +98,10 @@ button{font:inherit}
 .col.goal{border-color:rgba(127,194,74,.5);background:linear-gradient(180deg,rgba(127,194,74,.1),transparent 65%),var(--panel)}
 .col.goal .kicker{color:var(--green)}
 .col.bad h3{color:var(--rose)}
+.col .punch{margin:4px 0 0;text-align:center;font-family:var(--font-display);font-size:1.12rem;font-weight:800;line-height:1.25;color:var(--fg)}
+.col.bad .punch{color:var(--rose)}
+.col.goal .punch{color:var(--green)}
+.tagline{margin:0;text-align:center;font-family:var(--font-display);font-size:clamp(1.35rem,2.6vw,2rem);font-weight:800;letter-spacing:-.01em;color:var(--fg)}
 .logos{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .logos img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid var(--line);background:#000}
 .logos span{font-size:.8rem;color:var(--muted)}
@@ -153,6 +164,9 @@ button{font:inherit}
 .editbar button{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.18);padding:0;cursor:pointer;background:var(--sw)}
 .editbar button:hover,.editbar button:focus-visible{border-color:#fff;outline:none}
 .editbar button.default{background:conic-gradient(var(--fg) 0 50%,var(--bg) 50% 100%)}
+.editbar .sep{width:1px;height:18px;background:var(--line);margin:0 2px}
+.editbar button.sz{width:auto;height:22px;border-radius:6px;padding:0 7px;background:var(--bg);color:var(--fg);font:inherit;font-size:.7rem;font-weight:700;border:1px solid var(--line);line-height:1}
+.editbar button.sz:hover,.editbar button.sz:focus-visible{border-color:var(--fg)}
 .editbar label{position:relative;width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.18);background:conic-gradient(#e07a8a,#e3b64c,#7fc24a,#4cc3e3,#8b5fc0,#e07a8a);cursor:pointer;overflow:hidden}
 .editbar label:hover{border-color:#fff}
 .editbar input[type="color"]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
@@ -195,6 +209,11 @@ button{font:inherit}
       <a class="lbl" href="#quarter">3 · Dro vs Rain Forest / Inferno</a>
       <a class="num" href="#price-war">1</a><a class="num" href="#every-day-extraordinary">2</a><a class="num" href="#quarter">3</a>
     </nav>
+    <button type="button" class="lock" id="lockBtn" aria-pressed="false" title="Unlock to edit any text, its color and size">
+      <svg class="i-locked" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>
+      <svg class="i-open" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 5.6-1.5"/></svg>
+      <span>Locked</span>
+    </button>
   </div>
 </header>
 
@@ -205,8 +224,8 @@ button{font:inherit}
       <img src="img/mr-logo.png" alt="Magnolia Rd. Cannabis Co. emblem" width="529" height="529">
       <div>
         <p class="eyebrow">Page 1 of 3 · Prepared for Magnolia Road Cannabis Co.</p>
-        <h1>Escaping the <em>price war.</em></h1>
-        <p class="lede">Two co-branded flower lines sold only at Magnolia Road, matched to the two SKUs your customers already buy, so the sale can't be price-shopped away to another store.</p>
+        <h1><span>Escaping the</span> <em>price war.</em></h1>
+        <p class="lede">Your exclusive brand offerings sold only at Magnolia Road, targeted at a specific customer segment to provide value vs your competitors.</p>
       </div>
     </div>
     <div class="three">
@@ -216,18 +235,19 @@ button{font:inherit}
         <div class="logos"><img src="img/summit-logo.png" alt="Summit" width="225" height="225"><img src="img/dro-logo.jpg" alt="Dro" width="410" height="413"><span>and most of the rest of the case</span></div>
         <ul>
           <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/></svg><span>Summit, Dro and the rest are stocked by most dispensaries in the state</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/></svg><span>Every shop lists them on Weedmaps, Leafly and Dutchie, sortable by price</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/></svg><span>The brand earns the loyalty. Magnolia Road is only where it was bought today</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/></svg><span>All packaged brands are in conflict with their retail partners financial success</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/></svg><span>The retail store builds the vendor's brand, at their own expense!</span></li>
         </ul>
       </div>
       <div class="col bad">
         <span class="kicker">What it costs you</span>
-        <h3>A price war you can't win on margin</h3>
+        <h3>Nobody wins a race to the bottom</h3>
         <ul>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>The customer compares the same bag across a dozen menus before picking a store</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>Customer can EASILY price-comparison shop</span></li>
           <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>Whoever discounts hardest this week sets your ceiling and takes the sale</span></li>
           <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>You win only on the days you are the cheapest, and the margin goes with it</span></li>
         </ul>
+        <p class="punch">You cannot discount your way to safety</p>
       </div>
       <div class="col goal">
         <span class="kicker">The goal</span>
@@ -237,8 +257,10 @@ button{font:inherit}
           <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--green)"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>No other menu carries them, so there is nothing to price-shop against</span></li>
           <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--green)"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>Convert today's Summit and Dro buyers into customers who come back for yours</span></li>
         </ul>
+        <p class="punch">Be a Destination</p>
       </div>
     </div>
+    <p class="tagline">Driving Foot Traffic and Customer Retention</p>
   </div>
 </section>
 
@@ -294,7 +316,7 @@ button{font:inherit}
       <div class="verdict"><b>Same half ounce. Same customer. Only one of them can be price-shopped.</b><span>Summit is on every menu app in Colorado, so its price is set by whoever runs the deepest promo. Every Day Extraordinary is sold at Magnolia Road and nowhere else: a direct, better alternative with nothing online to compare it to, and the first step toward not needing Summit on the shelf at all.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Click any tile title or text to edit it.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color and size.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -350,7 +372,7 @@ button{font:inherit}
       <div class="verdict"><b>Same quarter. Same customer. Only one of them can be price-shopped.</b><span>Dro is listed everywhere, so the market sets its price. Rain Forest and Inferno are sold at Magnolia Road and nowhere else: two exclusive alternatives at one price, with nothing online to compare them to, and a path to retiring Dro from the shelf altogether.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Click any tile title or text to edit it.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color and size.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -365,6 +387,11 @@ button{font:inherit}
   <button type="button" data-color="#b99ee3" style="--sw:#b99ee3" title="Lilac"></button>
   <button type="button" data-color="#8f7fa3" style="--sw:#8f7fa3" title="Muted"></button>
   <label title="Custom color"><input type="color" id="customColor" value="#f3ead8" aria-label="Custom color"></label>
+  <span class="sep"></span>
+  <span class="lbl">Size</span>
+  <button type="button" class="sz" data-size="-10" title="Smaller">A−</button>
+  <button type="button" class="sz" data-size="10" title="Larger">A+</button>
+  <button type="button" class="sz" data-size="0" title="Default size">Reset</button>
 </div>
 <script>
 (function(){
@@ -449,17 +476,19 @@ button{font:inherit}
   document.querySelectorAll('[data-brand]').forEach(function(b){
     b.addEventListener('click', function(){ brand = b.dataset.brand; fill(); render(); });
   });
-  /* click-to-edit text on the attribute tiles and tile titles, saved in this browser */
-  var TKEY = 'mr-text-v1', texts = {}, originals = {};
+  /* click-to-edit text anywhere on the page while unlocked, saved in this browser */
+  var TKEY = 'mr-text-v2', texts = {}, originals = {};
   try{ texts = JSON.parse(localStorage.getItem(TKEY) || '{}') || {}; }catch(e){ texts = {}; }
   function saveTexts(){ try{ localStorage.setItem(TKEY, JSON.stringify(texts)); }catch(e){} }
-  document.querySelectorAll('.page').forEach(function(pg){
-    var n = 0;
-    pg.querySelectorAll('.attr > .t, .attrs .attr > b, .bb-head .spec > span:not([data-size-label]), .verdict > b, .verdict > span').forEach(function(el){
-      var k = pg.id + ':' + (n++);
+  var EDITABLE = '.brandline b, .brandline span, .eyebrow, .hero h1 > span, .hero h1 > em, .hero .lede, .col .kicker, .col h3, .col li > span, .col .punch, .logos span, .tagline, .pagenum, .page > .wrap > .lede, .float h2 .t-theirs, .float h2 .t-ours, .float h2 .t-vs, .float h2 .t-or, .bb-head .kicker, .bb-head b:not([data-brand-name]), .bb-head .spec > span:not([data-size-label]), .pill, .attr > .t, .attrs .attr > b, .verdict > b, .verdict > span, .foot > span';
+  document.querySelectorAll('.topbar, .page').forEach(function(pg){
+    var n = 0, id = pg.id || 'top';
+    pg.querySelectorAll(EDITABLE).forEach(function(el){
+      if(el.children.length) return;
+      var k = id + ':' + (n++);
       el.dataset.edit = k; originals[k] = el.textContent;
       if(texts[k] != null) el.textContent = texts[k];
-      el.contentEditable = 'true'; el.spellcheck = false; el.title = 'Click to edit';
+      el.spellcheck = false;
       el.addEventListener('input', function(){ texts[k] = el.textContent; saveTexts(); });
       el.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); el.blur(); } });
       el.addEventListener('paste', function(e){
@@ -469,11 +498,32 @@ button{font:inherit}
       });
     });
   });
-  /* text color palette, shown while an editable element has focus */
-  var CKEY = 'mr-color-v1', colors = {};
+  /* lock / unlock: nothing is editable until the button in the top bar is unlocked */
+  var lockBtn = document.getElementById('lockBtn'), unlocked = false;
+  function setLock(on){
+    unlocked = on;
+    document.body.classList.toggle('editing', on);
+    lockBtn.setAttribute('aria-pressed', String(on));
+    lockBtn.querySelector('span').textContent = on ? 'Unlocked' : 'Locked';
+    lockBtn.title = on ? 'Lock to stop editing' : 'Unlock to edit any text, its color and size';
+    document.querySelectorAll('[data-edit]').forEach(function(el){
+      if(on){ el.contentEditable = 'true'; el.title = 'Click to edit'; }
+      else { el.contentEditable = 'false'; el.removeAttribute('contenteditable'); el.removeAttribute('title'); }
+    });
+    if(!on){ if(document.activeElement && document.activeElement.closest('[data-edit]')) document.activeElement.blur(); hideBar(); }
+  }
+  lockBtn.addEventListener('click', function(){ setLock(!unlocked); });
+
+  /* text color and size palette, shown while an editable element has focus */
+  var CKEY = 'mr-color-v2', colors = {}, SKEY = 'mr-size-v1', sizes = {};
   try{ colors = JSON.parse(localStorage.getItem(CKEY) || '{}') || {}; }catch(e){ colors = {}; }
+  try{ sizes = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; }catch(e){ sizes = {}; }
   function saveColors(){ try{ localStorage.setItem(CKEY, JSON.stringify(colors)); }catch(e){} }
-  document.querySelectorAll('[data-edit]').forEach(function(el){ if(colors[el.dataset.edit]) el.style.color = colors[el.dataset.edit]; });
+  function saveSizes(){ try{ localStorage.setItem(SKEY, JSON.stringify(sizes)); }catch(e){} }
+  document.querySelectorAll('[data-edit]').forEach(function(el){
+    if(colors[el.dataset.edit]) el.style.color = colors[el.dataset.edit];
+    if(sizes[el.dataset.edit]) el.style.fontSize = sizes[el.dataset.edit] + '%';
+  });
 
   var bar = document.getElementById('editbar'), current = null;
   function placeBar(){
@@ -491,9 +541,22 @@ button{font:inherit}
     if(c){ current.style.color = c; colors[k] = c; } else { current.style.color = ''; delete colors[k]; }
     saveColors();
   }
+  function applySize(delta){
+    if(!current) return;
+    var k = current.dataset.edit;
+    if(!delta){ current.style.fontSize = ''; delete sizes[k]; }
+    else {
+      var next = Math.max(50, Math.min(300, (sizes[k] || 100) + delta));
+      sizes[k] = next; current.style.fontSize = next + '%';
+    }
+    saveSizes(); placeBar();
+  }
+  bar.querySelectorAll('button[data-size]').forEach(function(b){
+    b.addEventListener('click', function(){ applySize(parseInt(b.dataset.size, 10)); });
+  });
   document.addEventListener('focusin', function(e){
     var el = e.target.closest ? e.target.closest('[data-edit]') : null;
-    if(el) showBar(el);
+    if(el && unlocked) showBar(el);
   });
   document.addEventListener('focusout', function(e){
     var to = e.relatedTarget;
@@ -511,9 +574,9 @@ button{font:inherit}
   window.addEventListener('resize', placeBar);
 
   function resetTexts(){
-    texts = {}; colors = {};
-    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); }catch(e){}
-    document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; });
+    texts = {}; colors = {}; sizes = {};
+    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); }catch(e){}
+    document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; el.style.fontSize = ''; });
   }
   document.querySelectorAll('[data-reset]').forEach(function(b){
     b.addEventListener('click', function(){ reset(); fill(); render(); resetTexts(); });
