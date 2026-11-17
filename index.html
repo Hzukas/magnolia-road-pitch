@@ -198,7 +198,7 @@ button{font:inherit}
 .volrow .money{width:auto;flex:0 1 128px;min-width:104px}
 .volrow .money input{padding-left:2px}
 .volrow .money span{white-space:nowrap}
-.volout{display:grid;gap:3px;flex:1;min-width:0}
+.volout{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
 .volout .big{font-size:1.5rem}
 .bb.ours .bar .m{background:var(--green)}
 .verdict{border:1px solid rgba(127,194,74,.4);border-radius:12px;background:rgba(127,194,74,.1);padding:14px 18px;display:grid;gap:6px}
@@ -298,7 +298,7 @@ button{font:inherit}
           <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="summit14-cost" data-sku="summit14" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Summit purchase price"></div></div>
           <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="summit14-otd" data-sku="summit14" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Summit out-the-door price"></div></div>
           <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="summit14:pct">—</span><span class="sub" data-out="summit14:m"></span></div>
-          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="summit14-vol" data-sku="summit14" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Summit monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="summit14:mm">—</span><span class="sub">gross margin per month</span></div></div></div>
+          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="summit14-vol" data-sku="summit14" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Summit monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="summit14:mm">—</span><span class="sub">/ month</span></div></div></div>
         </div>
       </div>
 
@@ -320,7 +320,7 @@ button{font:inherit}
           <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="ede-cost" data-sku="ede" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Every Day Extraordinary purchase price"></div></div>
           <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="ede-otd" data-sku="ede" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Every Day Extraordinary out-the-door price"></div></div>
           <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="ede:pct">—</span><span class="sub" data-out="ede:m"></span></div>
-          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="ede-vol" data-sku="ede" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Every Day Extraordinary monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="ede:mm">—</span><span class="sub">gross margin per month</span></div></div></div>
+          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="ede-vol" data-sku="ede" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Every Day Extraordinary monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="ede:mm">—</span><span class="sub">/ month</span></div></div></div>
         </div>
       </div>
 
@@ -354,7 +354,7 @@ button{font:inherit}
           <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="dro7-cost" data-sku="dro7" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Dro purchase price"></div></div>
           <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="dro7-otd" data-sku="dro7" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Dro out-the-door price"></div></div>
           <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="dro7:pct">—</span><span class="sub" data-out="dro7:m"></span></div>
-          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="dro7-vol" data-sku="dro7" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Dro monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="dro7:mm">—</span><span class="sub">gross margin per month</span></div></div></div>
+          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="dro7-vol" data-sku="dro7" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Dro monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="dro7:mm">—</span><span class="sub">/ month</span></div></div></div>
         </div>
       </div>
 
@@ -376,7 +376,7 @@ button{font:inherit}
           <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="alt7-cost" data-sku="alt7" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Rain Forest or Inferno purchase price"></div></div>
           <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="alt7-otd" data-sku="alt7" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Rain Forest or Inferno out-the-door price"></div></div>
           <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="alt7:pct">—</span><span class="sub" data-out="alt7:m"></span></div>
-          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="alt7-vol" data-sku="alt7" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Rain Forest or Inferno monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="alt7:mm">—</span><span class="sub">gross margin per month</span></div></div></div>
+          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="alt7-vol" data-sku="alt7" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Rain Forest or Inferno monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="alt7:mm">—</span><span class="sub">/ month</span></div></div></div>
         </div>
       </div>
 
