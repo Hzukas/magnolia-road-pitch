@@ -161,6 +161,11 @@ button{font:inherit}
 .editbar{position:fixed;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;max-width:calc(100vw - 16px);background:var(--panel-2);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 .editbar .boxgrp{display:contents}
 .editbar.nobox .boxgrp{display:none}
+.editbar .txtgrp{display:contents}
+.editbar.notext .txtgrp{display:none}
+.editbar.notext .boxgrp > .sep{display:none}
+body.editing [data-box]{cursor:cell}
+body.editing [data-box] [contenteditable="true"]{cursor:text}
 .box-target{outline:2px dashed rgba(185,158,227,.7);outline-offset:3px}
 .editbar[hidden]{display:none!important}
 .editbar .lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 4px}
@@ -388,6 +393,7 @@ button{font:inherit}
 </section>
 
 <div class="editbar" id="editbar" hidden role="toolbar" aria-label="Text color">
+  <span class="txtgrp">
   <span class="lbl">Color</span>
   <button type="button" class="default" data-color="" title="Default"></button>
   <button type="button" data-color="#f3ead8" style="--sw:#f3ead8" title="Cream"></button>
@@ -417,6 +423,7 @@ button{font:inherit}
     <option value='"Permanent Marker",cursive'>Permanent Marker</option>
     <option value='ui-monospace,"Cascadia Mono",Consolas,monospace'>Monospace</option>
   </select>
+  </span>
   <span class="boxgrp">
     <span class="sep"></span>
     <span class="lbl">Box</span>
@@ -610,18 +617,23 @@ button{font:inherit}
     });
   });
 
-  var bar = document.getElementById('editbar'), current = null;
+  var bar = document.getElementById('editbar'), current = null, boxSel = null;
   function placeBar(){
-    if(!current) return;
-    var r = current.getBoundingClientRect(), bw = bar.offsetWidth || 300, bh = bar.offsetHeight || 36;
+    var a = current || boxSel; if(!a) return;
+    var r = a.getBoundingClientRect(), bw = bar.offsetWidth || 300, bh = bar.offsetHeight || 36;
     var top = r.top - bh - 8; if(top < 8) top = r.bottom + 8;
     var left = Math.max(8, Math.min(r.left, window.innerWidth - bw - 8));
     bar.style.top = top + 'px'; bar.style.left = left + 'px';
   }
-  function boxOf(){ return current ? current.closest('[data-box]') : null; }
+  function boxOf(){ return current ? current.closest('[data-box]') : boxSel; }
   function clearTarget(){ document.querySelectorAll('.box-target').forEach(function(x){ x.classList.remove('box-target'); }); }
+  function selectBox(b){
+    clearTarget(); current = null; boxSel = b; bar.hidden = false;
+    bar.classList.add('notext'); bar.classList.remove('nobox'); b.classList.add('box-target');
+    placeBar();
+  }
   function showBar(el){
-    clearTarget(); current = el; bar.hidden = false;
+    clearTarget(); current = el; boxSel = null; bar.hidden = false; bar.classList.remove('notext');
     var b = boxOf(); bar.classList.toggle('nobox', !b); if(b) b.classList.add('box-target');
     fontPick.value = fonts[el.dataset.edit] || '';
     placeBar();
@@ -632,7 +644,7 @@ button{font:inherit}
     if(f){ current.style.fontFamily = f; fonts[k] = f; } else { current.style.fontFamily = ''; delete fonts[k]; }
     saveFonts(); placeBar();
   }
-  function hideBar(){ current = null; bar.hidden = true; clearTarget(); }
+  function hideBar(){ current = null; boxSel = null; bar.hidden = true; clearTarget(); }
   function applyFill(c){
     var b = boxOf(); if(!b) return;
     var k = b.dataset.box;
@@ -665,8 +677,15 @@ button{font:inherit}
   document.addEventListener('focusout', function(e){
     var to = e.relatedTarget;
     if(to && (bar.contains(to) || (to.closest && to.closest('[data-edit]')))) return;
-    setTimeout(function(){ if(!bar.contains(document.activeElement) && !(document.activeElement && document.activeElement.closest('[data-edit]'))) hideBar(); }, 120);
+    setTimeout(function(){ if(!boxSel && !bar.contains(document.activeElement) && !(document.activeElement && document.activeElement.closest('[data-edit]'))) hideBar(); }, 120);
   });
+  document.addEventListener('click', function(e){
+    if(!unlocked || !e.target.closest) return;
+    if(bar.contains(e.target) || e.target.closest('[data-edit], input, button, select, label, a')) return;
+    var b = e.target.closest('[data-box]');
+    if(b) selectBox(b); else if(boxSel) hideBar();
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && boxSel) hideBar(); });
   bar.addEventListener('mousedown', function(e){ if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'SELECT') e.preventDefault(); });
   bar.querySelectorAll('button[data-color]').forEach(function(b){
     b.addEventListener('click', function(){ applyColor(b.dataset.color); });
