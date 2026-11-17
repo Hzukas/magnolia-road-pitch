@@ -162,6 +162,10 @@ button{font:inherit}
 .editbar .erow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .editbar .erow .lbl{min-width:44px}
 .editbar .erow .lbl + .lbl,.editbar .erow .sz + .lbl{min-width:0;margin-left:6px}
+.editbar .boxgrp .erow,.editbar .erow-undo{border-top:1px solid var(--line);padding-top:6px}
+.editbar .hint{font-size:.66rem;color:var(--muted)}
+.editbar button.sz:disabled{opacity:.45;cursor:default}
+.editbar button.sz:disabled:hover{border-color:var(--line)}
 .editbar .boxgrp{display:contents}
 .editbar.nobox .boxgrp{display:none}
 .editbar .txtgrp{display:contents}
@@ -445,6 +449,7 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
     <label title="Custom fill: click to apply the last picked color, or pick a new one"><input type="color" id="customFill" value="#231730" aria-label="Custom fill color"></label>
     </span>
   </span>
+  <span class="erow erow-undo"><button type="button" class="sz" id="undoBtn" title="Undo the last color, size, font or box fill change" disabled>Undo</button><span class="hint" id="undoHint">Nothing to undo</span></span>
 </div>
 <script>
 (function(){
@@ -627,6 +632,30 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   });
 
   var bar = document.getElementById('editbar'), current = null, boxSel = null;
+  var hist = [], undoBtn = document.getElementById('undoBtn'), undoHint = document.getElementById('undoHint');
+  var UNDO_WORDS = { color: 'text color', size: 'text size', font: 'font', fill: 'box fill' };
+  function updateUndo(){
+    var top = hist[hist.length - 1];
+    undoBtn.disabled = !top;
+    undoHint.textContent = top ? 'Last change: ' + UNDO_WORDS[top.kind] : 'Nothing to undo';
+  }
+  function remember(kind, el, prev, live){
+    var top = hist[hist.length - 1];
+    if(live && top && top.live && top.kind === kind && top.el === el) return;
+    hist.push({ kind: kind, el: el, prev: prev, live: !!live });
+    if(hist.length > 100) hist.shift();
+    updateUndo();
+  }
+  function undo(){
+    var h = hist.pop(); if(!h) return;
+    var el = h.el, k = h.kind === 'fill' ? el.dataset.box : el.dataset.edit, v = h.prev;
+    if(h.kind === 'fill'){ if(v){ fills[k] = v; el.style.background = v; } else { delete fills[k]; el.style.background = ''; } saveFills(); }
+    if(h.kind === 'color'){ if(v){ colors[k] = v; el.style.color = v; } else { delete colors[k]; el.style.color = ''; } saveColors(); }
+    if(h.kind === 'size'){ if(v){ sizes[k] = v; el.style.fontSize = v + '%'; } else { delete sizes[k]; el.style.fontSize = ''; } saveSizes(); }
+    if(h.kind === 'font'){ if(v){ fonts[k] = v; el.style.fontFamily = v; } else { delete fonts[k]; el.style.fontFamily = ''; } saveFonts(); if(current === el) fontPick.value = v || ''; }
+    updateUndo(); placeBar();
+  }
+  undoBtn.addEventListener('click', undo);
   function placeBar(){
     var a = current || boxSel; if(!a) return;
     var r = a.getBoundingClientRect(), bw = bar.offsetWidth || 300, bh = bar.offsetHeight || 36;
@@ -650,28 +679,32 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   function applyFont(f){
     if(!current) return;
     var k = current.dataset.edit;
+    if((f || '') !== (fonts[k] || '')) remember('font', current, fonts[k]);
     if(f){ current.style.fontFamily = f; fonts[k] = f; } else { current.style.fontFamily = ''; delete fonts[k]; }
     saveFonts(); placeBar();
   }
   function hideBar(){ current = null; boxSel = null; bar.hidden = true; clearTarget(); }
-  function applyFill(c){
-    var b = boxOf(); if(!b) return;
+  function applyFill(c, live, target){
+    var b = target || boxOf(); if(!b) return;
     var k = b.dataset.box;
+    if((c || '') !== (fills[k] || '')) remember('fill', b, fills[k], live);
     if(c){ b.style.background = c; fills[k] = c; } else { b.style.background = ''; delete fills[k]; }
     saveFills();
   }
-  function applyColor(c){
-    if(!current) return;
-    var k = current.dataset.edit;
-    if(c){ current.style.color = c; colors[k] = c; } else { current.style.color = ''; delete colors[k]; }
+  function applyColor(c, live, target){
+    var el = target || current; if(!el) return;
+    var k = el.dataset.edit;
+    if((c || '') !== (colors[k] || '')) remember('color', el, colors[k], live);
+    if(c){ el.style.color = c; colors[k] = c; } else { el.style.color = ''; delete colors[k]; }
     saveColors();
   }
   function applySize(delta){
     if(!current) return;
-    var k = current.dataset.edit;
-    if(!delta){ current.style.fontSize = ''; delete sizes[k]; }
+    var k = current.dataset.edit, prev = sizes[k];
+    if(!delta){ if(prev) remember('size', current, prev); current.style.fontSize = ''; delete sizes[k]; }
     else {
-      var next = Math.max(50, Math.min(300, (sizes[k] || 100) + delta));
+      var next = Math.max(50, Math.min(300, (prev || 100) + delta));
+      if(next !== (prev || 100)) remember('size', current, prev);
       sizes[k] = next; current.style.fontSize = next + '%';
     }
     saveSizes(); placeBar();
@@ -701,22 +734,22 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   });
   var fontPick = document.getElementById('fontPick');
   fontPick.addEventListener('change', function(){ var el = current; applyFont(fontPick.value); if(el) el.focus(); });
-  var custom = document.getElementById('customColor');
-  custom.addEventListener('click', function(){ applyColor(custom.value); });
-  custom.addEventListener('input', function(){ applyColor(custom.value); });
-  custom.addEventListener('change', function(){ applyColor(custom.value); if(current) current.focus(); });
+  var custom = document.getElementById('customColor'), colorTarget = null;
+  custom.addEventListener('click', function(){ colorTarget = current; applyColor(custom.value, false, colorTarget); });
+  custom.addEventListener('input', function(){ applyColor(custom.value, true, colorTarget); });
+  custom.addEventListener('change', function(){ applyColor(custom.value, false, colorTarget); if(current) current.focus(); });
   bar.querySelectorAll('button[data-fill]').forEach(function(b){
     b.addEventListener('click', function(){ applyFill(b.dataset.fill); });
   });
-  var customFill = document.getElementById('customFill');
-  customFill.addEventListener('click', function(){ applyFill(customFill.value); });
-  customFill.addEventListener('input', function(){ applyFill(customFill.value); });
-  customFill.addEventListener('change', function(){ applyFill(customFill.value); if(current) current.focus(); });
+  var customFill = document.getElementById('customFill'), fillTarget = null;
+  customFill.addEventListener('click', function(){ fillTarget = boxOf(); applyFill(customFill.value, false, fillTarget); });
+  customFill.addEventListener('input', function(){ applyFill(customFill.value, true, fillTarget); });
+  customFill.addEventListener('change', function(){ applyFill(customFill.value, false, fillTarget); if(current) current.focus(); });
   window.addEventListener('scroll', placeBar, true);
   window.addEventListener('resize', placeBar);
 
   function resetTexts(){
-    texts = {}; colors = {}; sizes = {}; fills = {}; fonts = {};
+    texts = {}; colors = {}; sizes = {}; fills = {}; fonts = {}; hist = []; updateUndo();
     try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); localStorage.removeItem(BKEY); localStorage.removeItem(FKEY); }catch(e){}
     document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; el.style.fontSize = ''; el.style.fontFamily = ''; });
     document.querySelectorAll('[data-box]').forEach(function(el){ el.style.background = ''; });
