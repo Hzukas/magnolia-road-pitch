@@ -158,7 +158,10 @@ button{font:inherit}
 [contenteditable="true"]{cursor:text;border-radius:4px;outline:none;min-width:2ch}
 [contenteditable="true"]:hover{box-shadow:0 0 0 1px var(--muted);background:rgba(255,255,255,.03)}
 [contenteditable="true"]:focus{box-shadow:0 0 0 2px var(--green);background:rgba(127,194,74,.08)}
-.editbar{position:fixed;z-index:20;display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--panel-2);border:1px solid var(--line);border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.editbar{position:fixed;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;max-width:calc(100vw - 16px);background:var(--panel-2);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.editbar .boxgrp{display:contents}
+.editbar.nobox .boxgrp{display:none}
+.box-target{outline:2px dashed rgba(185,158,227,.7);outline-offset:3px}
 .editbar[hidden]{display:none!important}
 .editbar .lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 4px}
 .editbar button{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.18);padding:0;cursor:pointer;background:var(--sw)}
@@ -215,7 +218,7 @@ button{font:inherit}
       <a class="lbl" href="#quarter">3 · Dro vs Rain Forest / Inferno</a>
       <a class="num" href="#price-war">1</a><a class="num" href="#every-day-extraordinary">2</a><a class="num" href="#quarter">3</a>
     </nav>
-    <button type="button" class="lock" id="lockBtn" aria-pressed="false" title="Unlock to edit any text, its color and size">
+    <button type="button" class="lock" id="lockBtn" aria-pressed="false" title="Unlock to edit any text, its color, size and box fill">
       <svg class="i-locked" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>
       <svg class="i-open" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 5.6-1.5"/></svg>
       <span>Locked</span>
@@ -322,7 +325,7 @@ button{font:inherit}
       <div class="verdict"><b>Same half ounce. Same customer. Only one of them can be price-shopped.</b><span>Summit is on every menu app in Colorado, so its price is set by whoever runs the deepest promo. Every Day Extraordinary is sold at Magnolia Road and nowhere else: a direct, better alternative with nothing online to compare it to, and the first step toward not needing Summit on the shelf at all.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color and size.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color and size, and the fill of its box.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -378,7 +381,7 @@ button{font:inherit}
       <div class="verdict"><b>Same quarter. Same customer. Only one of them can be price-shopped.</b><span>Dro is listed everywhere, so the market sets its price. Rain Forest and Inferno are sold at Magnolia Road and nowhere else: two exclusive alternatives at one price, with nothing online to compare them to, and a path to retiring Dro from the shelf altogether.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color and size.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color and size, and the fill of its box.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -398,6 +401,23 @@ button{font:inherit}
   <button type="button" class="sz" data-size="-10" title="Smaller">A−</button>
   <button type="button" class="sz" data-size="10" title="Larger">A+</button>
   <button type="button" class="sz" data-size="0" title="Default size">Reset</button>
+  <span class="boxgrp">
+    <span class="sep"></span>
+    <span class="lbl">Box</span>
+    <button type="button" class="default" data-fill="" title="Default fill"></button>
+    <button type="button" data-fill="#120c18" style="--sw:#120c18" title="Darkest"></button>
+    <button type="button" data-fill="#231730" style="--sw:#231730" title="Panel"></button>
+    <button type="button" data-fill="#352447" style="--sw:#352447" title="Lighter"></button>
+    <button type="button" data-fill="rgba(224,122,138,.2)" style="--sw:rgba(224,122,138,.4)" title="Red tint"></button>
+    <button type="button" data-fill="rgba(127,194,74,.16)" style="--sw:rgba(127,194,74,.4)" title="Green tint"></button>
+    <button type="button" data-fill="rgba(227,182,76,.16)" style="--sw:rgba(227,182,76,.4)" title="Gold tint"></button>
+    <button type="button" data-fill="rgba(76,195,227,.16)" style="--sw:rgba(76,195,227,.4)" title="Aqua tint"></button>
+    <button type="button" data-fill="rgba(185,158,227,.18)" style="--sw:rgba(185,158,227,.4)" title="Lilac tint"></button>
+    <button type="button" data-fill="#e07a8a" style="--sw:#e07a8a" title="Solid red"></button>
+    <button type="button" data-fill="#7fc24a" style="--sw:#7fc24a" title="Solid green"></button>
+    <button type="button" data-fill="#e3b64c" style="--sw:#e3b64c" title="Solid gold"></button>
+    <label title="Custom fill"><input type="color" id="customFill" value="#231730" aria-label="Custom fill color"></label>
+  </span>
 </div>
 <script>
 (function(){
@@ -482,16 +502,45 @@ button{font:inherit}
     b.addEventListener('click', function(){ brand = b.dataset.brand; fill(); render(); });
   });
   /* click-to-edit text anywhere on the page while unlocked, saved in this browser */
-  var TKEY = 'mr-text-v3', texts = {}, originals = {};
-  try{ texts = JSON.parse(localStorage.getItem(TKEY) || '{}') || {}; }catch(e){ texts = {}; }
+  /* keys are built from each element's original text, so reordering or adding elements keeps saved edits */
+  var TKEY = 'mr-text-v4', texts = {}, originals = {};
+  function readLS(k){ try{ return JSON.parse(localStorage.getItem(k) || '{}') || {}; }catch(e){ return {}; } }
+  texts = readLS(TKEY);
   function saveTexts(){ try{ localStorage.setItem(TKEY, JSON.stringify(texts)); }catch(e){} }
+  function slug(t){ return t.trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 40); }
+  function keyed(seen, base){ var c = seen[base] || 0; seen[base] = c + 1; return c ? base + '#' + c : base; }
   var EDITABLE = '.brandline b, .brandline span, .eyebrow, .hero h1 > span, .hero h1 > em, .hero .lede, .col .kicker, .col h3, .col li > span, .col .punch, .logos span, .tagline, .pagenum, .page > .wrap > .lede, .float h2 .t-theirs, .float h2 .t-ours, .float h2 .t-vs, .float h2 .t-or, .bb-head .kicker, .bb-head b:not([data-brand-name]), .bb-head .spec > span:not([data-size-label]), .pill, .attr > .t, .attrs .attr > b, .verdict > b, .verdict > span, .foot > span';
+  var editEls = [], legacy = { cur: {}, old: {} };  /* index keys used by earlier versions of this page */
   document.querySelectorAll('.topbar, .page').forEach(function(pg){
-    var n = 0, id = pg.id || 'top';
-    pg.querySelectorAll(EDITABLE).forEach(function(el){
-      if(el.children.length) return;
-      var k = id + ':' + (n++);
-      el.dataset.edit = k; originals[k] = el.textContent;
+    var id = pg.id || 'top', seen = {}, list = [];
+    pg.querySelectorAll(EDITABLE).forEach(function(el){ if(!el.children.length) list.push(el); });
+    list.forEach(function(el, i){
+      var k = keyed(seen, id + ':' + slug(el.textContent));
+      el.dataset.edit = k; originals[k] = el.textContent; editEls.push(el);
+      legacy.cur[id + ':' + i] = el;
+    });
+    /* element order before the Loyalty tile moved to second place */
+    var old = [], done = [];
+    list.forEach(function(el){
+      var g = el.closest('.attrs');
+      if(!g){ old.push(el); return; }
+      if(done.indexOf(g) >= 0) return;
+      done.push(g);
+      var tiles = g.querySelectorAll('.attr');
+      [tiles[0], tiles[2], tiles[3], tiles[1]].forEach(function(t){ list.forEach(function(e){ if(t && t.contains(e)) old.push(e); }); });
+    });
+    old.forEach(function(el, i){ legacy.old[id + ':' + i] = el; });
+  });
+  function migrate(fromKey, map, into, save){
+    var src = readLS(fromKey), n = 0;
+    Object.keys(src).forEach(function(k){ var el = map[k]; if(el && into[el.dataset.edit] == null){ into[el.dataset.edit] = src[k]; n++; } });
+    try{ localStorage.removeItem(fromKey); }catch(e){}
+    if(n) save();
+  }
+  migrate('mr-text-v3', legacy.cur, texts, saveTexts);
+  migrate('mr-text-v2', legacy.old, texts, saveTexts);
+  editEls.forEach(function(el){
+      var k = el.dataset.edit;
       if(texts[k] != null) el.textContent = texts[k];
       el.spellcheck = false;
       el.addEventListener('input', function(){ texts[k] = el.textContent; saveTexts(); });
@@ -501,7 +550,6 @@ button{font:inherit}
         var t = (e.clipboardData || window.clipboardData).getData('text');
         document.execCommand('insertText', false, t.replace(/\s+/g, ' '));
       });
-    });
   });
   /* lock / unlock: nothing is editable until the button in the top bar is unlocked */
   var lockBtn = document.getElementById('lockBtn'), unlocked = false;
@@ -510,24 +558,37 @@ button{font:inherit}
     document.body.classList.toggle('editing', on);
     lockBtn.setAttribute('aria-pressed', String(on));
     lockBtn.querySelector('span').textContent = on ? 'Unlocked' : 'Locked';
-    lockBtn.title = on ? 'Lock to stop editing' : 'Unlock to edit any text, its color and size';
+    lockBtn.title = on ? 'Lock to stop editing' : 'Unlock to edit any text, its color, size and box fill';
     document.querySelectorAll('[data-edit]').forEach(function(el){
-      if(on){ el.contentEditable = 'true'; el.title = 'Click to edit'; }
-      else { el.contentEditable = 'false'; el.removeAttribute('contenteditable'); el.removeAttribute('title'); }
+      if(on){ el.setAttribute('contenteditable', 'true'); el.title = 'Click to edit'; }
+      else { el.removeAttribute('contenteditable'); el.removeAttribute('title'); }
     });
     if(!on){ if(document.activeElement && document.activeElement.closest('[data-edit]')) document.activeElement.blur(); hideBar(); }
   }
   lockBtn.addEventListener('click', function(){ setLock(!unlocked); });
 
   /* text color and size palette, shown while an editable element has focus */
-  var CKEY = 'mr-color-v3', colors = {}, SKEY = 'mr-size-v2', sizes = {};
-  try{ colors = JSON.parse(localStorage.getItem(CKEY) || '{}') || {}; }catch(e){ colors = {}; }
-  try{ sizes = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; }catch(e){ sizes = {}; }
+  var CKEY = 'mr-color-v4', colors = readLS(CKEY), SKEY = 'mr-size-v3', sizes = readLS(SKEY);
   function saveColors(){ try{ localStorage.setItem(CKEY, JSON.stringify(colors)); }catch(e){} }
   function saveSizes(){ try{ localStorage.setItem(SKEY, JSON.stringify(sizes)); }catch(e){} }
+  migrate('mr-color-v3', legacy.cur, colors, saveColors);
+  migrate('mr-size-v2', legacy.cur, sizes, saveSizes);
   document.querySelectorAll('[data-edit]').forEach(function(el){
     if(colors[el.dataset.edit]) el.style.color = colors[el.dataset.edit];
     if(sizes[el.dataset.edit]) el.style.fontSize = sizes[el.dataset.edit] + '%';
+  });
+
+  /* box fills: background of the pill / tile / box that holds the focused text */
+  var BKEY = 'mr-box-v1', fills = readLS(BKEY);
+  function saveFills(){ try{ localStorage.setItem(BKEY, JSON.stringify(fills)); }catch(e){} }
+  document.querySelectorAll('.topbar, .page').forEach(function(pg){
+    var id = pg.id || 'top', seen = {};
+    pg.querySelectorAll('.pill, .attr, .col, .bb, .verdict').forEach(function(box){
+      var t = box.matches('[data-edit]') ? box : box.querySelector('[data-edit]');
+      var k = keyed(seen, id + ':' + box.className.split(' ')[0] + ':' + slug(t ? originals[t.dataset.edit] : ''));
+      box.dataset.box = k;
+      if(fills[k]) box.style.background = fills[k];
+    });
   });
 
   var bar = document.getElementById('editbar'), current = null;
@@ -538,8 +599,20 @@ button{font:inherit}
     var left = Math.max(8, Math.min(r.left, window.innerWidth - bw - 8));
     bar.style.top = top + 'px'; bar.style.left = left + 'px';
   }
-  function showBar(el){ current = el; bar.hidden = false; placeBar(); }
-  function hideBar(){ current = null; bar.hidden = true; }
+  function boxOf(){ return current ? current.closest('[data-box]') : null; }
+  function clearTarget(){ document.querySelectorAll('.box-target').forEach(function(x){ x.classList.remove('box-target'); }); }
+  function showBar(el){
+    clearTarget(); current = el; bar.hidden = false;
+    var b = boxOf(); bar.classList.toggle('nobox', !b); if(b) b.classList.add('box-target');
+    placeBar();
+  }
+  function hideBar(){ current = null; bar.hidden = true; clearTarget(); }
+  function applyFill(c){
+    var b = boxOf(); if(!b) return;
+    var k = b.dataset.box;
+    if(c){ b.style.background = c; fills[k] = c; } else { b.style.background = ''; delete fills[k]; }
+    saveFills();
+  }
   function applyColor(c){
     if(!current) return;
     var k = current.dataset.edit;
@@ -575,13 +648,20 @@ button{font:inherit}
   var custom = document.getElementById('customColor');
   custom.addEventListener('input', function(){ applyColor(custom.value); });
   custom.addEventListener('change', function(){ applyColor(custom.value); if(current) current.focus(); });
+  bar.querySelectorAll('button[data-fill]').forEach(function(b){
+    b.addEventListener('click', function(){ applyFill(b.dataset.fill); });
+  });
+  var customFill = document.getElementById('customFill');
+  customFill.addEventListener('input', function(){ applyFill(customFill.value); });
+  customFill.addEventListener('change', function(){ applyFill(customFill.value); if(current) current.focus(); });
   window.addEventListener('scroll', placeBar, true);
   window.addEventListener('resize', placeBar);
 
   function resetTexts(){
-    texts = {}; colors = {}; sizes = {};
-    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); }catch(e){}
+    texts = {}; colors = {}; sizes = {}; fills = {};
+    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); localStorage.removeItem(BKEY); }catch(e){}
     document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; el.style.fontSize = ''; });
+    document.querySelectorAll('[data-box]').forEach(function(el){ el.style.background = ''; });
   }
   document.querySelectorAll('[data-reset]').forEach(function(b){
     b.addEventListener('click', function(){ reset(); fill(); render(); resetTexts(); });
