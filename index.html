@@ -7,7 +7,7 @@
 <meta name="description" content="Exclusive co-branded flower for Magnolia Road: Every Day Extraordinary, Rain Forest and Inferno.">
 <title>Only at Magnolia Road</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;800&family=Oswald:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&family=Lora:wght@400;600;700&family=Permanent+Marker&display=swap">
 <style>
 /* Layout: three screen-height pages with scroll snap. Page 1 states the thesis; pages 2 and 3 are one
    side-by-side comparison each, competitor on the left, our exclusive brand on the right, pricing inline.
@@ -169,6 +169,8 @@ button{font:inherit}
 .editbar button.default{background:conic-gradient(var(--fg) 0 50%,var(--bg) 50% 100%)}
 .editbar .sep{width:1px;height:18px;background:var(--line);margin:0 2px}
 .editbar button.sz{width:auto;height:22px;border-radius:6px;padding:0 7px;background:var(--bg);color:var(--fg);font:inherit;font-size:.7rem;font-weight:700;border:1px solid var(--line);line-height:1}
+.editbar select{height:22px;border-radius:6px;padding:0 4px;background:var(--bg);color:var(--fg);font:inherit;font-size:.7rem;font-weight:600;border:1px solid var(--line);max-width:150px;cursor:pointer}
+.editbar select:hover,.editbar select:focus-visible{border-color:var(--fg);outline:none}
 .editbar button.sz:hover,.editbar button.sz:focus-visible{border-color:var(--fg)}
 .editbar label{position:relative;width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.18);background:conic-gradient(#e07a8a,#e3b64c,#7fc24a,#4cc3e3,#8b5fc0,#e07a8a);cursor:pointer;overflow:hidden}
 .editbar label:hover{border-color:#fff}
@@ -325,7 +327,7 @@ button{font:inherit}
       <div class="verdict"><b>Same half ounce. Same customer. Only one of them can be price-shopped.</b><span>Summit is on every menu app in Colorado, so its price is set by whoever runs the deepest promo. Every Day Extraordinary is sold at Magnolia Road and nowhere else: a direct, better alternative with nothing online to compare it to, and the first step toward not needing Summit on the shelf at all.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color and size, and the fill of its box.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size and font, and the fill of its box.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -381,7 +383,7 @@ button{font:inherit}
       <div class="verdict"><b>Same quarter. Same customer. Only one of them can be price-shopped.</b><span>Dro is listed everywhere, so the market sets its price. Rain Forest and Inferno are sold at Magnolia Road and nowhere else: two exclusive alternatives at one price, with nothing online to compare them to, and a path to retiring Dro from the shelf altogether.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color and size, and the fill of its box.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size and font, and the fill of its box.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -401,6 +403,20 @@ button{font:inherit}
   <button type="button" class="sz" data-size="-10" title="Smaller">A−</button>
   <button type="button" class="sz" data-size="10" title="Larger">A+</button>
   <button type="button" class="sz" data-size="0" title="Default size">Reset</button>
+  <span class="sep"></span>
+  <span class="lbl">Font</span>
+  <select id="fontPick" aria-label="Font">
+    <option value="">Default</option>
+    <option value='"Bricolage Grotesque","Inter",system-ui,sans-serif'>Bricolage Grotesque</option>
+    <option value='"Inter",system-ui,sans-serif'>Inter</option>
+    <option value='"Space Grotesk","Inter",system-ui,sans-serif'>Space Grotesk</option>
+    <option value='"Oswald","Inter",system-ui,sans-serif'>Oswald</option>
+    <option value='"Playfair Display",Georgia,serif'>Playfair Display</option>
+    <option value='"Lora",Georgia,serif'>Lora</option>
+    <option value='Georgia,"Times New Roman",serif'>Georgia</option>
+    <option value='"Permanent Marker",cursive'>Permanent Marker</option>
+    <option value='ui-monospace,"Cascadia Mono",Consolas,monospace'>Monospace</option>
+  </select>
   <span class="boxgrp">
     <span class="sep"></span>
     <span class="lbl">Box</span>
@@ -573,9 +589,12 @@ button{font:inherit}
   function saveSizes(){ try{ localStorage.setItem(SKEY, JSON.stringify(sizes)); }catch(e){} }
   migrate('mr-color-v3', legacy.cur, colors, saveColors);
   migrate('mr-size-v2', legacy.cur, sizes, saveSizes);
+  var FKEY = 'mr-font-v1', fonts = readLS(FKEY);
+  function saveFonts(){ try{ localStorage.setItem(FKEY, JSON.stringify(fonts)); }catch(e){} }
   document.querySelectorAll('[data-edit]').forEach(function(el){
     if(colors[el.dataset.edit]) el.style.color = colors[el.dataset.edit];
     if(sizes[el.dataset.edit]) el.style.fontSize = sizes[el.dataset.edit] + '%';
+    if(fonts[el.dataset.edit]) el.style.fontFamily = fonts[el.dataset.edit];
   });
 
   /* box fills: background of the pill / tile / box that holds the focused text */
@@ -604,7 +623,14 @@ button{font:inherit}
   function showBar(el){
     clearTarget(); current = el; bar.hidden = false;
     var b = boxOf(); bar.classList.toggle('nobox', !b); if(b) b.classList.add('box-target');
+    fontPick.value = fonts[el.dataset.edit] || '';
     placeBar();
+  }
+  function applyFont(f){
+    if(!current) return;
+    var k = current.dataset.edit;
+    if(f){ current.style.fontFamily = f; fonts[k] = f; } else { current.style.fontFamily = ''; delete fonts[k]; }
+    saveFonts(); placeBar();
   }
   function hideBar(){ current = null; bar.hidden = true; clearTarget(); }
   function applyFill(c){
@@ -641,10 +667,12 @@ button{font:inherit}
     if(to && (bar.contains(to) || (to.closest && to.closest('[data-edit]')))) return;
     setTimeout(function(){ if(!bar.contains(document.activeElement) && !(document.activeElement && document.activeElement.closest('[data-edit]'))) hideBar(); }, 120);
   });
-  bar.addEventListener('mousedown', function(e){ if(e.target.tagName !== 'INPUT') e.preventDefault(); });
+  bar.addEventListener('mousedown', function(e){ if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'SELECT') e.preventDefault(); });
   bar.querySelectorAll('button[data-color]').forEach(function(b){
     b.addEventListener('click', function(){ applyColor(b.dataset.color); });
   });
+  var fontPick = document.getElementById('fontPick');
+  fontPick.addEventListener('change', function(){ var el = current; applyFont(fontPick.value); if(el) el.focus(); });
   var custom = document.getElementById('customColor');
   custom.addEventListener('input', function(){ applyColor(custom.value); });
   custom.addEventListener('change', function(){ applyColor(custom.value); if(current) current.focus(); });
@@ -658,9 +686,9 @@ button{font:inherit}
   window.addEventListener('resize', placeBar);
 
   function resetTexts(){
-    texts = {}; colors = {}; sizes = {}; fills = {};
-    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); localStorage.removeItem(BKEY); }catch(e){}
-    document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; el.style.fontSize = ''; });
+    texts = {}; colors = {}; sizes = {}; fills = {}; fonts = {};
+    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); localStorage.removeItem(BKEY); localStorage.removeItem(FKEY); }catch(e){}
+    document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; el.style.fontSize = ''; el.style.fontFamily = ''; });
     document.querySelectorAll('[data-box]').forEach(function(el){ el.style.background = ''; });
   }
   document.querySelectorAll('[data-reset]').forEach(function(b){
