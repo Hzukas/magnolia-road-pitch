@@ -143,6 +143,7 @@ body.editing .pagereset{display:inline-flex}
 .label.multi{padding-bottom:24px}
 .label img{display:block;width:auto;height:auto;max-width:100%;max-height:min(52vh,480px);object-fit:contain}
 .label img[hidden]{display:none!important}
+.label.multi img{width:100%;aspect-ratio:var(--ratio)}
 .lnav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:rgba(18,12,24,.72);color:var(--fg);display:none;place-items:center;padding:0;cursor:pointer;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .label.multi .lnav{display:grid}
 .lnav.prev{left:10px}.lnav.next{right:10px}
@@ -531,6 +532,9 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
       else { img.removeAttribute('src'); img.alt = ''; img.hidden = true; }
       if(ph) ph.hidden = !!L;
       f.classList.toggle('multi', n > 1);
+      /* one frame shape per set (the widest option's), so flipping between labels never changes the height */
+      var ratio = 0; list.forEach(function(x){ if(x.w / x.h > ratio) ratio = x.w / x.h; });
+      if(n > 1) f.style.setProperty('--ratio', String(ratio)); else f.style.removeProperty('--ratio');
       var dots = f.querySelector('.ldots');
       if(dots){ dots.innerHTML = ''; if(n > 1) list.forEach(function(_, j){ var d = document.createElement('i'); if(j === i) d.className = 'on'; dots.appendChild(d); }); }
     });
