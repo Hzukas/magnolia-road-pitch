@@ -115,8 +115,8 @@ button{font:inherit}
 .attr.win{border-color:rgba(127,194,74,.5)}
 .reveal-wrap{display:grid;gap:14px}
 .reveal-wrap[hidden]{display:none!important}
-.reveal{justify-self:center;display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;border:2px solid var(--green);background:rgba(127,194,74,.12);color:var(--fg);font-family:var(--font-display);font-weight:800;font-size:1.05rem;cursor:pointer}
-.reveal:hover,.reveal:focus-visible{background:var(--green);color:#0f1a0a;outline:none}
+.reveal{justify-self:center;display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--fg-2);font-family:var(--font-display);font-weight:600;font-size:.9rem;cursor:pointer}
+.reveal:hover,.reveal:focus-visible{border-color:var(--green);color:var(--fg);background:var(--panel-2);outline:none}
 .reveal svg{transition:transform .2s}
 .reveal[aria-expanded="true"] svg{transform:rotate(180deg)}
 .reveal[aria-expanded="true"]{background:transparent;color:var(--fg-2);border-color:var(--line);font-size:.85rem;padding:8px 16px;font-weight:600}
@@ -141,7 +141,7 @@ button{font:inherit}
 .float h2 .t-or{color:var(--muted);font-weight:600;font-size:.6em;margin:0 .1em;vertical-align:middle}
 .pill{display:inline-flex;width:max-content;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
 .pill.ours{background:rgba(127,194,74,.14);border-color:var(--green);color:var(--green)}
-.pill.theirs{background:rgba(224,122,138,.12);border-color:var(--rose);color:var(--rose)}
+.pill.theirs{background:var(--rose);border-color:var(--rose);color:#2a0f14;font-size:.74rem;padding:7px 14px;letter-spacing:.08em}
 .attrs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .pricing{display:grid;grid-template-columns:1fr 1fr 1.3fr 1.7fr;gap:8px}
 @media (max-width:980px){.attrs{grid-template-columns:repeat(2,1fr)}.pricing{grid-template-columns:1fr 1fr}}
@@ -189,6 +189,12 @@ button{font:inherit}
 .bar i{display:block;height:100%}
 .bar .c{background:var(--muted)}
 .bar .m{background:var(--purple)}
+.volrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.volrow .money{width:auto;flex:0 1 128px;min-width:104px}
+.volrow .money input{padding-left:2px}
+.volrow .money span{white-space:nowrap}
+.volout{display:grid;gap:3px;flex:1;min-width:0}
+.volout .big{font-size:1.5rem}
 .bb.ours .bar .m{background:var(--green)}
 .verdict{border:1px solid rgba(127,194,74,.4);border-radius:12px;background:rgba(127,194,74,.1);padding:14px 18px;display:grid;gap:6px}
 .verdict b{font-family:var(--font-display);font-size:1.15rem;font-weight:800;color:var(--green)}
@@ -275,23 +281,23 @@ button{font:inherit}
         <div class="bb-head">
           <img class="round" src="img/summit-logo.png" alt="Summit" width="225" height="225">
           <div class="name"><span class="kicker">What they buy today</span><div class="row"><b>Summit</b><span class="spec"><span>14 g half oz</span><i>·</i><span>Small buds</span></span></div></div>
-          <div class="right"><span class="pill theirs">Sold statewide</span></div>
+          <div class="right"><span class="pill theirs">Sold in: As Many Stores as Possible</span></div>
         </div>
         <div class="attrs">
           <div class="attr lose"><span class="t">Where it's sold</span><b>Most dispensaries in Colorado</b></div>
+          <div class="attr lose"><span class="t">Loyalty goes to</span><b>The brand</b></div>
           <div class="attr lose"><span class="t">Price-shoppable online</span><b>Yes, on every menu app</b></div>
           <div class="attr lose"><span class="t">Who sets the price</span><b>Competitor promos</b></div>
-          <div class="attr lose"><span class="t">Loyalty goes to</span><b>The brand</b></div>
         </div>
         <div class="pricing">
           <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="summit14-cost" data-sku="summit14" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Summit purchase price"></div></div>
           <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="summit14-otd" data-sku="summit14" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Summit out-the-door price"></div></div>
           <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="summit14:pct">—</span><span class="sub" data-out="summit14:m"></span></div>
-          <div class="attr"><span class="t">Cost vs margin</span><span class="sub" data-out="summit14:pg"></span><div class="bar"><i class="c" data-bar="summit14:c"></i><i class="m" data-bar="summit14:m"></i></div></div>
+          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="summit14-vol" data-sku="summit14" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Summit monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="summit14:mm">—</span><span class="sub">gross margin per month</span></div></div></div>
         </div>
       </div>
 
-      <button type="button" class="reveal" aria-expanded="false" aria-controls="ede-reveal" data-reveal="ede-reveal" data-show="Reveal the Magnolia Road alternative" data-hide="Hide Every Day Extraordinary"><span>Reveal the Magnolia Road alternative</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l5 5 5-5"/></svg></button>
+      <button type="button" class="reveal" aria-expanded="false" aria-controls="ede-reveal" data-reveal="ede-reveal" data-show="Potential Magnolia Road Alternative" data-hide="Hide Every Day Extraordinary"><span>Potential Magnolia Road Alternative</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l5 5 5-5"/></svg></button>
       <div class="reveal-wrap" id="ede-reveal" hidden>
       <div class="bb ours">
         <div class="label"><img src="img/ede.jpg" alt="Every Day Extraordinary label: gold engraved mountains, half ounce, 14 grams, only at Magnolia Road" width="1400" height="467"></div>
@@ -301,15 +307,15 @@ button{font:inherit}
         </div>
         <div class="attrs">
           <div class="attr win"><span class="t">Where it's sold</span><b>Magnolia Road only</b></div>
+          <div class="attr win"><span class="t">Loyalty goes to</span><b>Magnolia Road</b></div>
           <div class="attr win"><span class="t">Price-shoppable online</span><b>No. Nothing to compare it to</b></div>
           <div class="attr win"><span class="t">Who sets the price</span><b>Magnolia Road</b></div>
-          <div class="attr win"><span class="t">Loyalty goes to</span><b>Magnolia Road</b></div>
         </div>
         <div class="pricing">
           <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="ede-cost" data-sku="ede" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Every Day Extraordinary purchase price"></div></div>
           <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="ede-otd" data-sku="ede" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Every Day Extraordinary out-the-door price"></div></div>
           <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="ede:pct">—</span><span class="sub" data-out="ede:m"></span></div>
-          <div class="attr"><span class="t">Cost vs margin</span><span class="sub" data-out="ede:pg"></span><div class="bar"><i class="c" data-bar="ede:c"></i><i class="m" data-bar="ede:m"></i></div></div>
+          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="ede-vol" data-sku="ede" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Every Day Extraordinary monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="ede:mm">—</span><span class="sub">gross margin per month</span></div></div></div>
         </div>
       </div>
 
@@ -331,23 +337,23 @@ button{font:inherit}
         <div class="bb-head">
           <img class="round" src="img/dro-logo.jpg" alt="Dro" width="410" height="413">
           <div class="name"><span class="kicker">What they buy today</span><div class="row"><b>Dro</b><span class="spec"><span>7 g quarter oz</span><i>·</i><span>Premium flower</span></span></div></div>
-          <div class="right"><span class="pill theirs">Sold statewide</span></div>
+          <div class="right"><span class="pill theirs">Sold in: As Many Stores as Possible</span></div>
         </div>
         <div class="attrs">
           <div class="attr lose"><span class="t">Where it's sold</span><b>Most dispensaries in Colorado</b></div>
+          <div class="attr lose"><span class="t">Loyalty goes to</span><b>The brand</b></div>
           <div class="attr lose"><span class="t">Price-shoppable online</span><b>Yes, on every menu app</b></div>
           <div class="attr lose"><span class="t">Who sets the price</span><b>Competitor promos</b></div>
-          <div class="attr lose"><span class="t">Loyalty goes to</span><b>The brand</b></div>
         </div>
         <div class="pricing">
           <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="dro7-cost" data-sku="dro7" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Dro purchase price"></div></div>
           <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="dro7-otd" data-sku="dro7" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Dro out-the-door price"></div></div>
           <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="dro7:pct">—</span><span class="sub" data-out="dro7:m"></span></div>
-          <div class="attr"><span class="t">Cost vs margin</span><span class="sub" data-out="dro7:pg"></span><div class="bar"><i class="c" data-bar="dro7:c"></i><i class="m" data-bar="dro7:m"></i></div></div>
+          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="dro7-vol" data-sku="dro7" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Dro monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="dro7:mm">—</span><span class="sub">gross margin per month</span></div></div></div>
         </div>
       </div>
 
-      <button type="button" class="reveal" aria-expanded="false" aria-controls="og-reveal" data-reveal="og-reveal" data-show="Reveal the Magnolia Road alternative" data-hide="Hide Rain Forest / Inferno"><span>Reveal the Magnolia Road alternative</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l5 5 5-5"/></svg></button>
+      <button type="button" class="reveal" aria-expanded="false" aria-controls="og-reveal" data-reveal="og-reveal" data-show="Potential Magnolia Road Alternative" data-hide="Hide Rain Forest / Inferno"><span>Potential Magnolia Road Alternative</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l5 5 5-5"/></svg></button>
       <div class="reveal-wrap" id="og-reveal" hidden>
       <div class="bb ours">
         <div class="label"><img data-brand-img alt="" hidden><div class="ph" data-brand-ph><span class="kicker">Label coming</span><b>Rain Forest</b><span>Quarter ounce · 7 g · Only at Magnolia Road</span></div></div>
@@ -357,15 +363,15 @@ button{font:inherit}
         </div>
         <div class="attrs">
           <div class="attr win"><span class="t">Where it's sold</span><b>Magnolia Road only</b></div>
+          <div class="attr win"><span class="t">Loyalty goes to</span><b>Magnolia Road</b></div>
           <div class="attr win"><span class="t">Price-shoppable online</span><b>No. Nothing to compare it to</b></div>
           <div class="attr win"><span class="t">Who sets the price</span><b>Magnolia Road</b></div>
-          <div class="attr win"><span class="t">Loyalty goes to</span><b>Magnolia Road</b></div>
         </div>
         <div class="pricing">
           <div class="attr"><span class="t">Purchase price</span><div class="money"><span>$</span><input id="alt7-cost" data-sku="alt7" data-f="cost" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Rain Forest or Inferno purchase price"></div></div>
           <div class="attr"><span class="t">Out the door</span><div class="money"><span>$</span><input id="alt7-otd" data-sku="alt7" data-f="otd" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Rain Forest or Inferno out-the-door price"></div></div>
           <div class="attr"><span class="t">Gross margin</span><span class="big" data-out="alt7:pct">—</span><span class="sub" data-out="alt7:m"></span></div>
-          <div class="attr"><span class="t">Cost vs margin</span><span class="sub" data-out="alt7:pg"></span><div class="bar"><i class="c" data-bar="alt7:c"></i><i class="m" data-bar="alt7:m"></i></div></div>
+          <div class="attr vol"><span class="t">Monthly volume vs monthly gross margin</span><div class="volrow"><div class="money"><input id="alt7-vol" data-sku="alt7" data-f="vol" type="number" inputmode="numeric" min="0" step="1" placeholder="units" aria-label="Rain Forest or Inferno monthly volume in units"><span>/ mo</span></div><div class="volout"><span class="big" data-out="alt7:mm">—</span><span class="sub">gross margin per month</span></div></div></div>
         </div>
       </div>
 
@@ -416,6 +422,7 @@ button{font:inherit}
   var KEY = 'mr-pricing-v3';
   var usd2 = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2});
   var pctF = function(p){ return (p*100).toFixed(1) + '%'; };
+  var usd0 = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0});
 
   var vals, edeSize, brand;
   function load(){
@@ -443,17 +450,15 @@ button{font:inherit}
   }
 
   function setText(sel, txt){ document.querySelectorAll('[data-out="'+sel+'"]').forEach(function(e){ e.textContent = txt; }); }
-  function setBar(sel, w){ document.querySelectorAll('[data-bar="'+sel+'"]').forEach(function(e){ e.style.width = w + '%'; }); }
 
   function renderSku(sku){
     var k = key(sku), v = vals[k] || {};
     var r = calc(v.cost, v.otd);
-    if(!r){ setText(sku+':pct','—'); setText(sku+':m',''); setText(sku+':pg',''); setBar(sku+':c',0); setBar(sku+':m',0); return null; }
+    if(!r){ setText(sku+':pct','—'); setText(sku+':m',''); setText(sku+':mm','—'); return null; }
     setText(sku+':pct', pctF(r.pct));
     setText(sku+':m', usd2.format(r.m) + ' per unit');
-    setText(sku+':pg', usd2.format(Number(v.otd) / GRAMS[k]) + ' per gram out the door');
-    var mp = Math.max(0, Math.min(100, r.pct*100));
-    setBar(sku+':c', 100-mp); setBar(sku+':m', mp);
+    var vol = Number(v.vol);
+    setText(sku+':mm', (v.vol !== '' && v.vol != null && isFinite(vol) && vol >= 0) ? usd0.format(r.m * vol) : '—');
     return r;
   }
 
@@ -477,7 +482,7 @@ button{font:inherit}
     b.addEventListener('click', function(){ brand = b.dataset.brand; fill(); render(); });
   });
   /* click-to-edit text anywhere on the page while unlocked, saved in this browser */
-  var TKEY = 'mr-text-v2', texts = {}, originals = {};
+  var TKEY = 'mr-text-v3', texts = {}, originals = {};
   try{ texts = JSON.parse(localStorage.getItem(TKEY) || '{}') || {}; }catch(e){ texts = {}; }
   function saveTexts(){ try{ localStorage.setItem(TKEY, JSON.stringify(texts)); }catch(e){} }
   var EDITABLE = '.brandline b, .brandline span, .eyebrow, .hero h1 > span, .hero h1 > em, .hero .lede, .col .kicker, .col h3, .col li > span, .col .punch, .logos span, .tagline, .pagenum, .page > .wrap > .lede, .float h2 .t-theirs, .float h2 .t-ours, .float h2 .t-vs, .float h2 .t-or, .bb-head .kicker, .bb-head b:not([data-brand-name]), .bb-head .spec > span:not([data-size-label]), .pill, .attr > .t, .attrs .attr > b, .verdict > b, .verdict > span, .foot > span';
@@ -515,7 +520,7 @@ button{font:inherit}
   lockBtn.addEventListener('click', function(){ setLock(!unlocked); });
 
   /* text color and size palette, shown while an editable element has focus */
-  var CKEY = 'mr-color-v2', colors = {}, SKEY = 'mr-size-v1', sizes = {};
+  var CKEY = 'mr-color-v3', colors = {}, SKEY = 'mr-size-v2', sizes = {};
   try{ colors = JSON.parse(localStorage.getItem(CKEY) || '{}') || {}; }catch(e){ colors = {}; }
   try{ sizes = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; }catch(e){ sizes = {}; }
   function saveColors(){ try{ localStorage.setItem(CKEY, JSON.stringify(colors)); }catch(e){} }
