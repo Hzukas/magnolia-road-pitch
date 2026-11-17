@@ -158,12 +158,14 @@ button{font:inherit}
 [contenteditable="true"]{cursor:text;border-radius:4px;outline:none;min-width:2ch}
 [contenteditable="true"]:hover{box-shadow:0 0 0 1px var(--muted);background:rgba(255,255,255,.03)}
 [contenteditable="true"]:focus{box-shadow:0 0 0 2px var(--green);background:rgba(127,194,74,.08)}
-.editbar{position:fixed;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 8px;max-width:calc(100vw - 16px);background:var(--panel-2);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.editbar{position:fixed;z-index:20;display:flex;flex-direction:column;align-items:stretch;gap:6px;width:max-content;max-width:calc(100vw - 16px);padding:8px 10px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.editbar .erow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.editbar .erow .lbl{min-width:44px}
+.editbar .erow .lbl + .lbl,.editbar .erow .sz + .lbl{min-width:0;margin-left:6px}
 .editbar .boxgrp{display:contents}
 .editbar.nobox .boxgrp{display:none}
 .editbar .txtgrp{display:contents}
 .editbar.notext .txtgrp{display:none}
-.editbar.notext .boxgrp > .sep{display:none}
 body.editing [data-box]{cursor:cell}
 body.editing [data-box] [contenteditable="true"]{cursor:text}
 .box-target{outline:2px dashed rgba(185,158,227,.7);outline-offset:3px}
@@ -172,7 +174,6 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
 .editbar button{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.18);padding:0;cursor:pointer;background:var(--sw)}
 .editbar button:hover,.editbar button:focus-visible{border-color:#fff;outline:none}
 .editbar button.default{background:conic-gradient(var(--fg) 0 50%,var(--bg) 50% 100%)}
-.editbar .sep{width:1px;height:18px;background:var(--line);margin:0 2px}
 .editbar button.sz{width:auto;height:22px;border-radius:6px;padding:0 7px;background:var(--bg);color:var(--fg);font:inherit;font-size:.7rem;font-weight:700;border:1px solid var(--line);line-height:1}
 .editbar select{height:22px;border-radius:6px;padding:0 4px;background:var(--bg);color:var(--fg);font:inherit;font-size:.7rem;font-weight:600;border:1px solid var(--line);max-width:150px;cursor:pointer}
 .editbar select:hover,.editbar select:focus-visible{border-color:var(--fg);outline:none}
@@ -392,8 +393,9 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   </div>
 </section>
 
-<div class="editbar" id="editbar" hidden role="toolbar" aria-label="Text color">
+<div class="editbar" id="editbar" hidden role="toolbar" aria-label="Editing palette">
   <span class="txtgrp">
+  <span class="erow">
   <span class="lbl">Color</span>
   <button type="button" class="default" data-color="" title="Default"></button>
   <button type="button" data-color="#f3ead8" style="--sw:#f3ead8" title="Cream"></button>
@@ -403,13 +405,13 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   <button type="button" data-color="#4cc3e3" style="--sw:#4cc3e3" title="Aqua"></button>
   <button type="button" data-color="#b99ee3" style="--sw:#b99ee3" title="Lilac"></button>
   <button type="button" data-color="#8f7fa3" style="--sw:#8f7fa3" title="Muted"></button>
-  <label title="Custom color"><input type="color" id="customColor" value="#f3ead8" aria-label="Custom color"></label>
-  <span class="sep"></span>
+  <label title="Custom color: click to apply the last picked color, or pick a new one"><input type="color" id="customColor" value="#f3ead8" aria-label="Custom color"></label>
+  </span>
+  <span class="erow">
   <span class="lbl">Size</span>
   <button type="button" class="sz" data-size="-10" title="Smaller">A−</button>
   <button type="button" class="sz" data-size="10" title="Larger">A+</button>
   <button type="button" class="sz" data-size="0" title="Default size">Reset</button>
-  <span class="sep"></span>
   <span class="lbl">Font</span>
   <select id="fontPick" aria-label="Font">
     <option value="">Default</option>
@@ -424,8 +426,9 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
     <option value='ui-monospace,"Cascadia Mono",Consolas,monospace'>Monospace</option>
   </select>
   </span>
+  </span>
   <span class="boxgrp">
-    <span class="sep"></span>
+    <span class="erow">
     <span class="lbl">Box</span>
     <button type="button" class="default" data-fill="" title="Default fill"></button>
     <button type="button" data-fill="#120c18" style="--sw:#120c18" title="Darkest"></button>
@@ -439,7 +442,8 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
     <button type="button" data-fill="#e07a8a" style="--sw:#e07a8a" title="Solid red"></button>
     <button type="button" data-fill="#7fc24a" style="--sw:#7fc24a" title="Solid green"></button>
     <button type="button" data-fill="#e3b64c" style="--sw:#e3b64c" title="Solid gold"></button>
-    <label title="Custom fill"><input type="color" id="customFill" value="#231730" aria-label="Custom fill color"></label>
+    <label title="Custom fill: click to apply the last picked color, or pick a new one"><input type="color" id="customFill" value="#231730" aria-label="Custom fill color"></label>
+    </span>
   </span>
 </div>
 <script>
@@ -698,12 +702,14 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   var fontPick = document.getElementById('fontPick');
   fontPick.addEventListener('change', function(){ var el = current; applyFont(fontPick.value); if(el) el.focus(); });
   var custom = document.getElementById('customColor');
+  custom.addEventListener('click', function(){ applyColor(custom.value); });
   custom.addEventListener('input', function(){ applyColor(custom.value); });
   custom.addEventListener('change', function(){ applyColor(custom.value); if(current) current.focus(); });
   bar.querySelectorAll('button[data-fill]').forEach(function(b){
     b.addEventListener('click', function(){ applyFill(b.dataset.fill); });
   });
   var customFill = document.getElementById('customFill');
+  customFill.addEventListener('click', function(){ applyFill(customFill.value); });
   customFill.addEventListener('input', function(){ applyFill(customFill.value); });
   customFill.addEventListener('change', function(){ applyFill(customFill.value); if(current) current.focus(); });
   window.addEventListener('scroll', placeBar, true);
