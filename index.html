@@ -123,7 +123,10 @@ body.editing .pagereset{display:inline-flex}
 
 /* comparison pages: competitor block on top, our brand below, same columns in both */
 .stack{display:grid;gap:14px}
-.bb{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:clamp(14px,2vw,22px);display:grid;gap:14px;min-width:0}
+.bb{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:clamp(14px,2vw,22px);display:grid;grid-template-columns:1fr 1fr;gap:14px;min-width:0}
+.bb > *{grid-column:1 / -1;min-width:0}
+.bb > .attrs{grid-column:1}
+.bb > .pricing{grid-column:2}
 .bb.theirs{border-color:var(--rose);box-shadow:inset 0 0 0 1px rgba(224,122,138,.25)}
 .bb.ours{border-color:var(--green);box-shadow:inset 0 0 0 1px rgba(127,194,74,.25);background:linear-gradient(180deg,rgba(127,194,74,.07),transparent 40%),var(--panel)}
 .attr.lose{border-color:rgba(224,122,138,.45)}
@@ -168,10 +171,10 @@ body.editing .pagereset{display:inline-flex}
 .pill{display:inline-flex;width:max-content;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
 .pill.ours{background:rgba(127,194,74,.14);border-color:var(--green);color:var(--green)}
 .pill.theirs{background:var(--rose);border-color:var(--rose);color:#2a0f14;font-size:.74rem;padding:7px 14px;letter-spacing:.08em}
-.attrs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.pricing{display:grid;grid-template-columns:1fr 1fr 1.3fr 1.7fr;gap:8px}
-@media (max-width:980px){.attrs{grid-template-columns:repeat(2,1fr)}.pricing{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){.attrs{grid-template-columns:1fr}}
+.attrs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;align-content:start}
+.pricing{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}
+@media (max-width:900px){.bb{grid-template-columns:1fr}.bb > .attrs,.bb > .pricing{grid-column:1}}
+@media (max-width:520px){.attrs,.pricing{grid-template-columns:1fr}}
 .attr{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:5px;align-content:start;min-width:0}
 .attr > .t{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#b99ee3;padding-bottom:6px;border-bottom:1px solid var(--line);margin-bottom:2px;line-height:1.3}
 .attr > b{font-size:1.02rem;font-weight:600;color:var(--fg);line-height:1.3}
