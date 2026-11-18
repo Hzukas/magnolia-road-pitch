@@ -207,6 +207,8 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
 .editbar button{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.18);padding:0;cursor:pointer;background:var(--sw)}
 .editbar button:hover,.editbar button:focus-visible{border-color:#fff;outline:none}
 .editbar button.default{background:conic-gradient(var(--fg) 0 50%,var(--bg) 50% 100%)}
+.editbar button.none{background:linear-gradient(135deg,transparent 45%,var(--rose) 45% 55%,transparent 55%),var(--bg)}
+.editbar .boxgrp .erow + .erow{border-top:0;padding-top:0}
 .editbar button.sz{width:auto;height:22px;border-radius:6px;padding:0 7px;background:var(--bg);color:var(--fg);font:inherit;font-size:.7rem;font-weight:700;border:1px solid var(--line);line-height:1}
 .editbar select{height:22px;border-radius:6px;padding:0 4px;background:var(--bg);color:var(--fg);font:inherit;font-size:.7rem;font-weight:600;border:1px solid var(--line);max-width:150px;cursor:pointer}
 .editbar select:hover,.editbar select:focus-visible{border-color:var(--fg);outline:none}
@@ -375,7 +377,7 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
       <div class="verdict"><b>Same customer. Same small buds. Only one of them can be price-shopped.</b><span>Summit is on every menu app in Colorado, so its price is set by whoever runs the deepest promo. Every Day Extraordinary is sold at Magnolia Road and nowhere else: a direct, better alternative with nothing online to compare it to, and the first step toward not needing Summit on the shelf at all.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size and font, and the fill of its box; Save version or Copy link carries those edits to another browser.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size and font, and the fill and border of its box; Save version or Copy link carries those edits to another browser.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -432,7 +434,7 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
       <div class="verdict"><b>Same quarter. Same customer. Only one of them can be price-shopped.</b><span>Dro is listed everywhere, so the market sets its price. Inferno and Rain Forest are sold at Magnolia Road and nowhere else: two exclusive alternatives at one price, with nothing online to compare them to, and a path to retiring Dro from the shelf altogether.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size and font, and the fill of its box; Save version or Copy link carries those edits to another browser.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size and font, and the fill and border of its box; Save version or Copy link carries those edits to another browser.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -487,13 +489,29 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
     <button type="button" data-fill="#e3b64c" style="--sw:#e3b64c" title="Solid gold"></button>
     <label title="Custom fill: click to apply the last picked color, or pick a new one"><input type="color" id="customFill" value="#231730" aria-label="Custom fill color"></label>
     </span>
+    <span class="erow">
+    <span class="lbl">Border</span>
+    <button type="button" class="default" data-border="" title="Default border"></button>
+    <button type="button" class="none" data-border="transparent" title="No border"></button>
+    <button type="button" data-border="#3b2a4d" style="--sw:#3b2a4d" title="Line"></button>
+    <button type="button" data-border="#8f7fa3" style="--sw:#8f7fa3" title="Muted"></button>
+    <button type="button" data-border="#f3ead8" style="--sw:#f3ead8" title="Cream"></button>
+    <button type="button" data-border="#ffffff" style="--sw:#ffffff" title="White"></button>
+    <button type="button" data-border="#e07a8a" style="--sw:#e07a8a" title="Red"></button>
+    <button type="button" data-border="#7fc24a" style="--sw:#7fc24a" title="Green"></button>
+    <button type="button" data-border="#e3b64c" style="--sw:#e3b64c" title="Gold"></button>
+    <button type="button" data-border="#f0943a" style="--sw:#f0943a" title="Orange"></button>
+    <button type="button" data-border="#4cc3e3" style="--sw:#4cc3e3" title="Aqua"></button>
+    <button type="button" data-border="#b99ee3" style="--sw:#b99ee3" title="Lilac"></button>
+    <label title="Custom border: click to apply the last picked color, or pick a new one"><input type="color" id="customBorder" value="#e3b64c" aria-label="Custom border color"></label>
+    </span>
   </span>
   <span class="erow erow-undo"><button type="button" class="sz" id="undoBtn" title="Undo the last color, size, font or box fill change" disabled>Undo</button><span class="hint" id="undoHint">Nothing to undo</span></span>
 </div>
 <script>
 (function(){
   /* versions: every edit on the page in one object, saved as a file or carried in the link (#v=1.u.… plain, #v=1.d.… deflated) */
-  var VKEYS = { texts:'mr-text-v4', colors:'mr-color-v4', sizes:'mr-size-v3', fonts:'mr-font-v1', fills:'mr-box-v1', pricing:'mr-pricing-v3' };
+  var VKEYS = { texts:'mr-text-v4', colors:'mr-color-v4', sizes:'mr-size-v3', fonts:'mr-font-v1', fills:'mr-box-v1', borders:'mr-border-v1', pricing:'mr-pricing-v3' };
   var LIVE = 'https://hzukas.github.io/magnolia-road-pitch/';
   function b64uEnc(bytes){ var t = ''; for(var i = 0; i < bytes.length; i++) t += String.fromCharCode(bytes[i]); return btoa(t).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
   function b64uDec(str){ str = str.replace(/-/g, '+').replace(/_/g, '/'); while(str.length % 4) str += '='; var t = atob(str), a = new Uint8Array(t.length); for(var i = 0; i < t.length; i++) a[i] = t.charCodeAt(i); return a; }
@@ -760,6 +778,10 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   /* box fills: background of the pill / tile / box that holds the focused text */
   var BKEY = 'mr-box-v1', fills = readLS(BKEY);
   function saveFills(){ try{ localStorage.setItem(BKEY, JSON.stringify(fills)); }catch(e){} }
+  var BRKEY = 'mr-border-v1', borders = readLS(BRKEY);
+  function saveBorders(){ try{ localStorage.setItem(BRKEY, JSON.stringify(borders)); }catch(e){} }
+  /* the big windows also carry a faint inner ring in their default color; a chosen border replaces it */
+  function setBorder(box, c){ box.style.borderColor = c || ''; if(box.classList.contains('bb')) box.style.boxShadow = c ? 'none' : ''; }
   if(alias(fills)) saveFills();
   document.querySelectorAll('.topbar, .page').forEach(function(pg){
     var id = pg.id || 'top', seen = {};
@@ -768,12 +790,13 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
       var k = keyed(seen, id + ':' + box.className.split(' ')[0] + ':' + slug(t ? originals[t.dataset.edit] : ''));
       box.dataset.box = k;
       if(fills[k]) box.style.background = fills[k];
+      if(borders[k]) setBorder(box, borders[k]);
     });
   });
 
   var bar = document.getElementById('editbar'), current = null, boxSel = null;
   var hist = [], undoBtn = document.getElementById('undoBtn'), undoHint = document.getElementById('undoHint');
-  var UNDO_WORDS = { color: 'text color', size: 'text size', font: 'font', fill: 'box fill', page: 'page color reset' };
+  var UNDO_WORDS = { color: 'text color', size: 'text size', font: 'font', fill: 'box fill', border: 'border color', page: 'page color reset' };
   function updateUndo(){
     var top = hist[hist.length - 1];
     undoBtn.disabled = !top;
@@ -788,26 +811,28 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   }
   function undo(){
     var h = hist.pop(); if(!h) return;
-    var el = h.el, k = h.kind === 'fill' ? el.dataset.box : el.dataset.edit, v = h.prev;
+    var el = h.el, k = (h.kind === 'fill' || h.kind === 'border') ? el.dataset.box : el.dataset.edit, v = h.prev;
     if(h.kind === 'fill'){ if(v){ fills[k] = v; el.style.background = v; } else { delete fills[k]; el.style.background = ''; } saveFills(); }
+    if(h.kind === 'border'){ if(v){ borders[k] = v; } else { delete borders[k]; } setBorder(el, v); saveBorders(); }
     if(h.kind === 'color'){ if(v){ colors[k] = v; el.style.color = v; } else { delete colors[k]; el.style.color = ''; } saveColors(); }
     if(h.kind === 'size'){ if(v){ sizes[k] = v; el.style.fontSize = v + '%'; } else { delete sizes[k]; el.style.fontSize = ''; } saveSizes(); }
     if(h.kind === 'font'){ if(v){ fonts[k] = v; el.style.fontFamily = v; } else { delete fonts[k]; el.style.fontFamily = ''; } saveFonts(); if(current === el) fontPick.value = v || ''; }
     if(h.kind === 'page'){
       Object.keys(v.colors).forEach(function(key){ var e = document.querySelector('[data-edit="' + key + '"]'); if(e){ colors[key] = v.colors[key]; e.style.color = v.colors[key]; } });
       Object.keys(v.fills).forEach(function(key){ var e = document.querySelector('[data-box="' + key + '"]'); if(e){ fills[key] = v.fills[key]; e.style.background = v.fills[key]; } });
-      saveColors(); saveFills();
+      Object.keys(v.borders || {}).forEach(function(key){ var e = document.querySelector('[data-box="' + key + '"]'); if(e){ borders[key] = v.borders[key]; setBorder(e, v.borders[key]); } });
+      saveColors(); saveFills(); saveBorders();
     }
     updateUndo(); placeBar();
   }
   undoBtn.addEventListener('click', undo);
   document.querySelectorAll('[data-page-reset]').forEach(function(b){
     b.addEventListener('click', function(){
-      var pg = b.closest('.page'), snap = { colors: {}, fills: {} }, n = 0;
+      var pg = b.closest('.page'), snap = { colors: {}, fills: {}, borders: {} }, n = 0;
       pg.querySelectorAll('[data-edit]').forEach(function(el){ var key = el.dataset.edit; if(colors[key]){ snap.colors[key] = colors[key]; delete colors[key]; el.style.color = ''; n++; } });
-      pg.querySelectorAll('[data-box]').forEach(function(el){ var key = el.dataset.box; if(fills[key]){ snap.fills[key] = fills[key]; delete fills[key]; el.style.background = ''; n++; } });
+      pg.querySelectorAll('[data-box]').forEach(function(el){ var key = el.dataset.box; if(fills[key]){ snap.fills[key] = fills[key]; delete fills[key]; el.style.background = ''; n++; } if(borders[key]){ snap.borders[key] = borders[key]; delete borders[key]; setBorder(el, ''); n++; } });
       if(!n) return;
-      saveColors(); saveFills();
+      saveColors(); saveFills(); saveBorders();
       remember('page', pg, snap);
     });
   });
@@ -845,6 +870,13 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
     if((c || '') !== (fills[k] || '')) remember('fill', b, fills[k], live);
     if(c){ b.style.background = c; fills[k] = c; } else { b.style.background = ''; delete fills[k]; }
     saveFills();
+  }
+  function applyBorder(c, live, target){
+    var b = target || boxOf(); if(!b) return;
+    var k = b.dataset.box;
+    if((c || '') !== (borders[k] || '')) remember('border', b, borders[k], live);
+    if(c){ borders[k] = c; } else { delete borders[k]; }
+    setBorder(b, c); saveBorders();
   }
   function applyColor(c, live, target){
     var el = target || current; if(!el) return;
@@ -900,14 +932,21 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   customFill.addEventListener('click', function(){ fillTarget = boxOf(); applyFill(customFill.value, false, fillTarget); });
   customFill.addEventListener('input', function(){ applyFill(customFill.value, true, fillTarget); });
   customFill.addEventListener('change', function(){ applyFill(customFill.value, false, fillTarget); if(current) current.focus(); });
+  bar.querySelectorAll('button[data-border]').forEach(function(b){
+    b.addEventListener('click', function(){ applyBorder(b.dataset.border); });
+  });
+  var customBorder = document.getElementById('customBorder'), borderTarget = null;
+  customBorder.addEventListener('click', function(){ borderTarget = boxOf(); applyBorder(customBorder.value, false, borderTarget); });
+  customBorder.addEventListener('input', function(){ applyBorder(customBorder.value, true, borderTarget); });
+  customBorder.addEventListener('change', function(){ applyBorder(customBorder.value, false, borderTarget); if(current) current.focus(); });
   window.addEventListener('scroll', placeBar, true);
   window.addEventListener('resize', placeBar);
 
   function resetTexts(){
-    texts = {}; colors = {}; sizes = {}; fills = {}; fonts = {}; hist = []; updateUndo();
-    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); localStorage.removeItem(BKEY); localStorage.removeItem(FKEY); }catch(e){}
+    texts = {}; colors = {}; sizes = {}; fills = {}; borders = {}; fonts = {}; hist = []; updateUndo();
+    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); localStorage.removeItem(BKEY); localStorage.removeItem(BRKEY); localStorage.removeItem(FKEY); }catch(e){}
     document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; el.style.fontSize = ''; el.style.fontFamily = ''; });
-    document.querySelectorAll('[data-box]').forEach(function(el){ el.style.background = ''; });
+    document.querySelectorAll('[data-box]').forEach(function(el){ el.style.background = ''; setBorder(el, ''); });
   }
   document.querySelectorAll('[data-reset]').forEach(function(b){
     b.addEventListener('click', function(){ reset(); fill(); render(); resetTexts(); });
