@@ -108,6 +108,8 @@ body.editing .pagereset{display:inline-flex}
 .col ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;color:var(--fg-2);font-size:.92rem}
 .col li{display:grid;grid-template-columns:16px 1fr;gap:9px;align-items:start}
 .col li svg{margin-top:4px}
+.col li svg.x{color:#ff2d2d}
+.col li svg.ok{color:var(--green)}
 .col.goal{border-color:rgba(127,194,74,.5);background:linear-gradient(180deg,rgba(127,194,74,.1),transparent 65%),var(--panel)}
 .col.goal .kicker{color:var(--green)}
 .col.bad h3{color:var(--rose)}
@@ -212,6 +214,14 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
 .editbar button.default{background:conic-gradient(var(--fg) 0 50%,var(--bg) 50% 100%)}
 .editbar button.none{background:linear-gradient(135deg,transparent 45%,var(--rose) 45% 55%,transparent 55%),var(--bg)}
 .editbar .boxgrp .erow + .erow{border-top:0;padding-top:0}
+.editbar .erow-bullet,.editbar .erow-move{border-top:1px solid var(--line);padding-top:6px}
+.editbar .erow-bullet{display:none}
+.editbar.hasbullet .erow-bullet{display:flex}
+.movehandle{position:fixed;z-index:21;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--fg);display:grid;place-items:center;padding:0;cursor:grab;box-shadow:0 4px 14px rgba(0,0,0,.45);touch-action:none}
+.movehandle:hover{border-color:var(--green);color:var(--green)}
+.movehandle:active{cursor:grabbing}
+.movehandle[hidden]{display:none}
+body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
 .editbar button.sz{width:auto;height:22px;border-radius:6px;padding:0 7px;background:var(--bg);color:var(--fg);font:inherit;font-size:.7rem;font-weight:700;border:1px solid var(--line);line-height:1}
 .editbar select{height:22px;border-radius:6px;padding:0 4px;background:var(--bg);color:var(--fg);font:inherit;font-size:.7rem;font-weight:600;border:1px solid var(--line);max-width:150px;cursor:pointer}
 .editbar select:hover,.editbar select:focus-visible{border-color:var(--fg);outline:none}
@@ -306,9 +316,9 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
         <span class="kicker">What it costs you</span>
         <h3>Nobody wins a race to the bottom</h3>
         <ul>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>Customer can EASILY price-comparison shop</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>Whoever discounts hardest this week sets your ceiling and takes the sale</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--rose)"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>You win only on the days you are the cheapest, and the margin goes with it</span></li>
+          <li><svg class="x" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>Customer can EASILY price-comparison shop</span></li>
+          <li><svg class="x" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>Whoever discounts hardest this week sets your ceiling and takes the sale</span></li>
+          <li><svg class="x" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 4l8 8M12 4l-8 8"/></svg><span>You win only on the days you are the cheapest, and the margin goes with it</span></li>
         </ul>
         <p class="punch">You cannot discount your way to safety</p>
       </div>
@@ -316,9 +326,9 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
         <span class="kicker">The goal</span>
         <h3>Create captive customers</h3>
         <ul>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--green)"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>Two exclusive brands with "Only at Magnolia Road" printed on the label</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--green)"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>No other menu carries them, so there is nothing to price-shop against</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--green)"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>Convert today's Summit and Dro buyers into customers who come back for yours</span></li>
+          <li><svg class="ok" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>Two exclusive brands with "Only at Magnolia Road" printed on the label</span></li>
+          <li><svg class="ok" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>No other menu carries them, so there is nothing to price-shop against</span></li>
+          <li><svg class="ok" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8.5l3.5 3.5L13 5"/></svg><span>Convert today's Summit and Dro buyers into customers who come back for yours</span></li>
         </ul>
         <p class="punch">Be a Destination</p>
       </div>
@@ -380,7 +390,7 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
       <div class="verdict"><b>Same customer. Same small buds. Only one of them can be price-shopped.</b><span>Summit is on every menu app in Colorado, so its price is set by whoever runs the deepest promo. Every Day Extraordinary is sold at Magnolia Road and nowhere else: a direct, better alternative with nothing online to compare it to, and the first step toward not needing Summit on the shelf at all.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size and font, and the fill and border of its box; Save version or Copy link carries those edits to another browser.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size, font and position, the fill and border of its box, and bullet colors; Save version or Copy link carries those edits to another browser.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -437,7 +447,7 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
       <div class="verdict"><b>Same quarter. Same customer. Only one of them can be price-shopped.</b><span>Dro is listed everywhere, so the market sets its price. Inferno and Rain Forest are sold at Magnolia Road and nowhere else: two exclusive alternatives at one price, with nothing online to compare them to, and a path to retiring Dro from the shelf altogether.</span></div>
       </div>
     </div>
-    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size and font, and the fill and border of its box; Save version or Copy link carries those edits to another browser.</span><button type="button" data-reset>Reset figures and text</button></div>
+    <div class="foot"><span>Gross margin = (out the door − purchase price) ÷ out the door. Pre-filled figures are placeholders, not a quote. Unlock (top right) to edit any text, its color, size, font and position, the fill and border of its box, and bullet colors; Save version or Copy link carries those edits to another browser.</span><button type="button" data-reset>Reset figures and text</button></div>
   </div>
 </section>
 
@@ -509,12 +519,36 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
     <label title="Custom border: click to apply the last picked color, or pick a new one"><input type="color" id="customBorder" value="#e3b64c" aria-label="Custom border color"></label>
     </span>
   </span>
+  <span class="erow erow-bullet">
+    <span class="lbl">Bullet</span>
+    <button type="button" class="default" data-bullet="" title="Default bullet color"></button>
+    <button type="button" data-bullet="#ff2d2d" style="--sw:#ff2d2d" title="Bright red"></button>
+    <button type="button" data-bullet="#e07a8a" style="--sw:#e07a8a" title="Rose"></button>
+    <button type="button" data-bullet="#7fc24a" style="--sw:#7fc24a" title="Green"></button>
+    <button type="button" data-bullet="#e3b64c" style="--sw:#e3b64c" title="Gold"></button>
+    <button type="button" data-bullet="#f0943a" style="--sw:#f0943a" title="Orange"></button>
+    <button type="button" data-bullet="#4cc3e3" style="--sw:#4cc3e3" title="Aqua"></button>
+    <button type="button" data-bullet="#b99ee3" style="--sw:#b99ee3" title="Lilac"></button>
+    <button type="button" data-bullet="#f3ead8" style="--sw:#f3ead8" title="Cream"></button>
+    <button type="button" data-bullet="#8f7fa3" style="--sw:#8f7fa3" title="Muted"></button>
+    <label title="Custom bullet color: click to apply the last picked color, or pick a new one"><input type="color" id="customBullet" value="#ff2d2d" aria-label="Custom bullet color"></label>
+  </span>
+  <span class="erow erow-move">
+    <span class="lbl">Move</span>
+    <button type="button" class="sz" data-nudge="-1,0" title="Left (Shift for 10px)">&#9664;</button>
+    <button type="button" class="sz" data-nudge="0,-1" title="Up (Shift for 10px)">&#9650;</button>
+    <button type="button" class="sz" data-nudge="0,1" title="Down (Shift for 10px)">&#9660;</button>
+    <button type="button" class="sz" data-nudge="1,0" title="Right (Shift for 10px)">&#9654;</button>
+    <button type="button" class="sz" data-nudge="reset" title="Back to its normal place">Reset</button>
+    <span class="hint" id="moveHint">or drag the handle</span>
+  </span>
   <span class="erow erow-undo"><button type="button" class="sz" id="undoBtn" title="Undo the last color, size, font or box fill change" disabled>Undo</button><span class="hint" id="undoHint">Nothing to undo</span></span>
 </div>
+<button type="button" class="movehandle" id="moveHandle" hidden title="Drag to move" aria-label="Drag to move"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1v14M1 8h14M5 4l3-3 3 3M5 12l3 3 3-3M4 5 1 8l3 3M12 5l3 3-3 3"/></svg></button>
 <script>
 (function(){
   /* versions: every edit on the page in one object, saved as a file or carried in the link (#v=1.u.… plain, #v=1.d.… deflated) */
-  var VKEYS = { texts:'mr-text-v4', colors:'mr-color-v4', sizes:'mr-size-v3', fonts:'mr-font-v1', fills:'mr-box-v1', borders:'mr-border-v1', pricing:'mr-pricing-v3' };
+  var VKEYS = { texts:'mr-text-v4', colors:'mr-color-v4', sizes:'mr-size-v3', fonts:'mr-font-v1', fills:'mr-box-v1', borders:'mr-border-v1', bullets:'mr-bullet-v1', pos:'mr-pos-v1', pricing:'mr-pricing-v3' };
   var LIVE = 'https://hzukas.github.io/magnolia-road-pitch/';
   function b64uEnc(bytes){ var t = ''; for(var i = 0; i < bytes.length; i++) t += String.fromCharCode(bytes[i]); return btoa(t).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
   function b64uDec(str){ str = str.replace(/-/g, '+').replace(/_/g, '/'); while(str.length % 4) str += '='; var t = atob(str), a = new Uint8Array(t.length); for(var i = 0; i < t.length; i++) a[i] = t.charCodeAt(i); return a; }
@@ -797,9 +831,23 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
     });
   });
 
+  var BUKEY = 'mr-bullet-v1', bullets = readLS(BUKEY);
+  function saveBullets(){ try{ localStorage.setItem(BUKEY, JSON.stringify(bullets)); }catch(e){} }
+  function bulletOf(el){ return (el && el.matches('.col li > span') && el.previousElementSibling && el.previousElementSibling.tagName === 'svg') ? el.previousElementSibling : null; }
+  document.querySelectorAll('[data-edit]').forEach(function(el){ var svg = bulletOf(el); if(svg && bullets[el.dataset.edit]) svg.style.color = bullets[el.dataset.edit]; });
+  var PKEY = 'mr-pos-v1', pos = readLS(PKEY);
+  function savePos(){ try{ localStorage.setItem(PKEY, JSON.stringify(pos)); }catch(e){} }
+  function posKey(el){ return el.dataset.box || el.dataset.edit; }
+  function setPos(el, o){
+    if(o && (o.x || o.y)){ el.style.transform = 'translate(' + o.x + 'px,' + o.y + 'px)'; el.classList.add('moved'); }
+    else { el.style.transform = ''; el.classList.remove('moved'); }
+  }
+  document.querySelectorAll('[data-box], [data-edit]').forEach(function(el){ var o = pos[posKey(el)]; if(o) setPos(el, o); });
   var bar = document.getElementById('editbar'), current = null, boxSel = null;
+  var handle = document.getElementById('moveHandle');
+  function moveTarget(){ return boxSel || current; }
   var hist = [], undoBtn = document.getElementById('undoBtn'), undoHint = document.getElementById('undoHint');
-  var UNDO_WORDS = { color: 'text color', size: 'text size', font: 'font', fill: 'box fill', border: 'border color', page: 'page color reset' };
+  var UNDO_WORDS = { color: 'text color', size: 'text size', font: 'font', fill: 'box fill', border: 'border color', bullet: 'bullet color', pos: 'position', page: 'page color reset' };
   function updateUndo(){
     var top = hist[hist.length - 1];
     undoBtn.disabled = !top;
@@ -814,8 +862,10 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   }
   function undo(){
     var h = hist.pop(); if(!h) return;
-    var el = h.el, k = (h.kind === 'fill' || h.kind === 'border') ? el.dataset.box : el.dataset.edit, v = h.prev;
+    var el = h.el, k = (h.kind === 'fill' || h.kind === 'border') ? el.dataset.box : (h.kind === 'pos' ? posKey(el) : el.dataset.edit), v = h.prev;
     if(h.kind === 'fill'){ if(v){ fills[k] = v; el.style.background = v; } else { delete fills[k]; el.style.background = ''; } saveFills(); }
+    if(h.kind === 'bullet'){ var bsvg = bulletOf(el); if(v){ bullets[k] = v; } else { delete bullets[k]; } if(bsvg) bsvg.style.color = v || ''; saveBullets(); }
+    if(h.kind === 'pos'){ if(v){ pos[k] = v; } else { delete pos[k]; } setPos(el, v); savePos(); }
     if(h.kind === 'border'){ if(v){ borders[k] = v; } else { delete borders[k]; } setBorder(el, v); saveBorders(); }
     if(h.kind === 'color'){ if(v){ colors[k] = v; el.style.color = v; } else { delete colors[k]; el.style.color = ''; } saveColors(); }
     if(h.kind === 'size'){ if(v){ sizes[k] = v; el.style.fontSize = v + '%'; } else { delete sizes[k]; el.style.fontSize = ''; } saveSizes(); }
@@ -824,18 +874,19 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
       Object.keys(v.colors).forEach(function(key){ var e = document.querySelector('[data-edit="' + key + '"]'); if(e){ colors[key] = v.colors[key]; e.style.color = v.colors[key]; } });
       Object.keys(v.fills).forEach(function(key){ var e = document.querySelector('[data-box="' + key + '"]'); if(e){ fills[key] = v.fills[key]; e.style.background = v.fills[key]; } });
       Object.keys(v.borders || {}).forEach(function(key){ var e = document.querySelector('[data-box="' + key + '"]'); if(e){ borders[key] = v.borders[key]; setBorder(e, v.borders[key]); } });
-      saveColors(); saveFills(); saveBorders();
+      Object.keys(v.bullets || {}).forEach(function(key){ var e = document.querySelector('[data-edit="' + key + '"]'), svg = bulletOf(e); if(svg){ bullets[key] = v.bullets[key]; svg.style.color = v.bullets[key]; } });
+      saveColors(); saveFills(); saveBorders(); saveBullets();
     }
     updateUndo(); placeBar();
   }
   undoBtn.addEventListener('click', undo);
   document.querySelectorAll('[data-page-reset]').forEach(function(b){
     b.addEventListener('click', function(){
-      var pg = b.closest('.page'), snap = { colors: {}, fills: {}, borders: {} }, n = 0;
-      pg.querySelectorAll('[data-edit]').forEach(function(el){ var key = el.dataset.edit; if(colors[key]){ snap.colors[key] = colors[key]; delete colors[key]; el.style.color = ''; n++; } });
+      var pg = b.closest('.page'), snap = { colors: {}, fills: {}, borders: {}, bullets: {} }, n = 0;
+      pg.querySelectorAll('[data-edit]').forEach(function(el){ var key = el.dataset.edit; if(colors[key]){ snap.colors[key] = colors[key]; delete colors[key]; el.style.color = ''; n++; } var svg = bulletOf(el); if(svg && bullets[key]){ snap.bullets[key] = bullets[key]; delete bullets[key]; svg.style.color = ''; n++; } });
       pg.querySelectorAll('[data-box]').forEach(function(el){ var key = el.dataset.box; if(fills[key]){ snap.fills[key] = fills[key]; delete fills[key]; el.style.background = ''; n++; } if(borders[key]){ snap.borders[key] = borders[key]; delete borders[key]; setBorder(el, ''); n++; } });
       if(!n) return;
-      saveColors(); saveFills(); saveBorders();
+      saveColors(); saveFills(); saveBorders(); saveBullets();
       remember('page', pg, snap);
     });
   });
@@ -845,18 +896,22 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
     var top = r.top - bh - 8; if(top < 8) top = r.bottom + 8;
     var left = Math.max(8, Math.min(r.left, window.innerWidth - bw - 8));
     bar.style.top = top + 'px'; bar.style.left = left + 'px';
+    var m = moveTarget();
+    if(m && unlocked){ var mr = m.getBoundingClientRect(); handle.hidden = false; handle.style.top = (mr.top - 13) + 'px'; handle.style.left = (mr.left - 13) + 'px'; }
+    else handle.hidden = true;
   }
   function boxOf(){ return current ? current.closest('[data-box]') : boxSel; }
   function clearTarget(){ document.querySelectorAll('.box-target').forEach(function(x){ x.classList.remove('box-target'); }); }
   function selectBox(b){
     clearTarget(); current = null; boxSel = b; bar.hidden = false;
-    bar.classList.add('notext'); bar.classList.remove('nobox'); b.classList.add('box-target');
+    bar.classList.add('notext'); bar.classList.remove('nobox', 'hasbullet'); b.classList.add('box-target');
     placeBar();
   }
   function showBar(el){
     clearTarget(); current = el; boxSel = null; bar.hidden = false; bar.classList.remove('notext');
     var b = boxOf(); bar.classList.toggle('nobox', !b); if(b) b.classList.add('box-target');
     fontPick.value = fonts[el.dataset.edit] || '';
+    bar.classList.toggle('hasbullet', !!bulletOf(el));
     placeBar();
   }
   function applyFont(f){
@@ -866,13 +921,26 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
     if(f){ current.style.fontFamily = f; fonts[k] = f; } else { current.style.fontFamily = ''; delete fonts[k]; }
     saveFonts(); placeBar();
   }
-  function hideBar(){ current = null; boxSel = null; bar.hidden = true; clearTarget(); }
+  function hideBar(){ current = null; boxSel = null; bar.hidden = true; handle.hidden = true; clearTarget(); }
   function applyFill(c, live, target){
     var b = target || boxOf(); if(!b) return;
     var k = b.dataset.box;
     if((c || '') !== (fills[k] || '')) remember('fill', b, fills[k], live);
     if(c){ b.style.background = c; fills[k] = c; } else { b.style.background = ''; delete fills[k]; }
     saveFills();
+  }
+  function applyBullet(c, live, target){
+    var el = target || current, svg = bulletOf(el); if(!svg) return;
+    var k = el.dataset.edit;
+    if((c || '') !== (bullets[k] || '')) remember('bullet', el, bullets[k], live);
+    if(c){ bullets[k] = c; } else { delete bullets[k]; }
+    svg.style.color = c || ''; saveBullets();
+  }
+  function applyPos(el, o, record){
+    var k = posKey(el), prev = pos[k];
+    if(record && JSON.stringify(prev || null) !== JSON.stringify(o || null)) remember('pos', el, prev);
+    if(o && (o.x || o.y)){ pos[k] = { x: o.x, y: o.y }; } else { delete pos[k]; }
+    setPos(el, o); savePos(); placeBar();
   }
   function applyBorder(c, live, target){
     var b = target || boxOf(); if(!b) return;
@@ -935,6 +1003,46 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   customFill.addEventListener('click', function(){ fillTarget = boxOf(); applyFill(customFill.value, false, fillTarget); });
   customFill.addEventListener('input', function(){ applyFill(customFill.value, true, fillTarget); });
   customFill.addEventListener('change', function(){ applyFill(customFill.value, false, fillTarget); if(current) current.focus(); });
+  bar.querySelectorAll('button[data-bullet]').forEach(function(b){
+    b.addEventListener('click', function(){ applyBullet(b.dataset.bullet); });
+  });
+  var customBullet = document.getElementById('customBullet'), bulletTarget = null;
+  customBullet.addEventListener('click', function(){ bulletTarget = current; applyBullet(customBullet.value, false, bulletTarget); });
+  customBullet.addEventListener('input', function(){ applyBullet(customBullet.value, true, bulletTarget); });
+  customBullet.addEventListener('change', function(){ applyBullet(customBullet.value, false, bulletTarget); if(current) current.focus(); });
+  /* move: arrow buttons nudge 2px (10px with Shift); the handle drags */
+  bar.querySelectorAll('button[data-nudge]').forEach(function(b){
+    b.addEventListener('click', function(e){
+      var el = moveTarget(); if(!el) return;
+      if(b.dataset.nudge === 'reset'){ applyPos(el, null, true); return; }
+      var d = b.dataset.nudge.split(','), step = e.shiftKey ? 10 : 2, o = pos[posKey(el)] || { x: 0, y: 0 };
+      applyPos(el, { x: o.x + Number(d[0]) * step, y: o.y + Number(d[1]) * step }, true);
+    });
+  });
+  (function(){
+    var drag = null;
+    handle.addEventListener('pointerdown', function(e){
+      var el = moveTarget(); if(!el) return;
+      e.preventDefault();
+      var o = pos[posKey(el)] || { x: 0, y: 0 };
+      drag = { el: el, sx: e.clientX, sy: e.clientY, ox: o.x, oy: o.y, prev: pos[posKey(el)] };
+      try{ handle.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    handle.addEventListener('pointermove', function(e){
+      if(!drag) return;
+      var o = { x: Math.round(drag.ox + e.clientX - drag.sx), y: Math.round(drag.oy + e.clientY - drag.sy) };
+      setPos(drag.el, o); pos[posKey(drag.el)] = o; placeBar();
+    });
+    function end(e){
+      if(!drag) return;
+      var el = drag.el, prev = drag.prev, o = pos[posKey(el)] || { x: 0, y: 0 };
+      drag = null;
+      if(JSON.stringify(prev || null) !== JSON.stringify((o.x || o.y) ? o : null)){ hist.push({ kind: 'pos', el: el, prev: prev, live: false }); if(hist.length > 100) hist.shift(); updateUndo(); }
+      applyPos(el, o, false);
+    }
+    handle.addEventListener('pointerup', end);
+    handle.addEventListener('pointercancel', end);
+  })();
   bar.querySelectorAll('button[data-border]').forEach(function(b){
     b.addEventListener('click', function(){ applyBorder(b.dataset.border); });
   });
@@ -946,10 +1054,10 @@ body.editing [data-box] [contenteditable="true"]{cursor:text}
   window.addEventListener('resize', placeBar);
 
   function resetTexts(){
-    texts = {}; colors = {}; sizes = {}; fills = {}; borders = {}; fonts = {}; hist = []; updateUndo();
-    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); localStorage.removeItem(BKEY); localStorage.removeItem(BRKEY); localStorage.removeItem(FKEY); }catch(e){}
-    document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; el.style.fontSize = ''; el.style.fontFamily = ''; });
-    document.querySelectorAll('[data-box]').forEach(function(el){ el.style.background = ''; setBorder(el, ''); });
+    texts = {}; colors = {}; sizes = {}; fills = {}; borders = {}; fonts = {}; bullets = {}; pos = {}; hist = []; updateUndo();
+    try{ localStorage.removeItem(TKEY); localStorage.removeItem(CKEY); localStorage.removeItem(SKEY); localStorage.removeItem(BKEY); localStorage.removeItem(BRKEY); localStorage.removeItem(FKEY); localStorage.removeItem(BUKEY); localStorage.removeItem(PKEY); }catch(e){}
+    document.querySelectorAll('[data-edit]').forEach(function(el){ el.textContent = originals[el.dataset.edit]; el.style.color = ''; el.style.fontSize = ''; el.style.fontFamily = ''; var svg = bulletOf(el); if(svg) svg.style.color = ''; });
+    document.querySelectorAll('[data-box], [data-edit]').forEach(function(el){ el.style.background = ''; setBorder(el, ''); setPos(el, null); });
   }
   document.querySelectorAll('[data-reset]').forEach(function(b){
     b.addEventListener('click', function(){ reset(); fill(); render(); resetTexts(); });
