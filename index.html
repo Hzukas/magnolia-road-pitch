@@ -80,7 +80,10 @@ body.editing .vers{display:inline-flex}
 .page .wrap{display:grid;gap:clamp(16px,2.2vh,28px)}
 .pagehead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px 28px}
 .float{position:sticky;top:var(--bar);z-index:5;margin:6px calc(-1*var(--gutter-r)) 6px calc(-1*var(--gutter-l));padding:10px var(--gutter-r) 10px var(--gutter-l);background:rgba(18,12,24,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:0 0 12px 12px;box-shadow:0 10px 24px -18px rgba(0,0,0,.9)}
+.float{display:flex;align-items:center;gap:12px 24px;flex-wrap:wrap}
 .float h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:800;line-height:1.1;margin:0}
+.quotebox{flex:1 1 280px;min-width:0;border:1px dashed rgba(185,158,227,.5);border-radius:12px;padding:10px 16px;background:rgba(185,158,227,.06)}
+.quotebox .qt{display:block;font-style:italic;font-size:1.05rem;line-height:1.4;color:var(--fg-2)}
 .float h2 .t-reveal[hidden]{display:none}
 .page > .wrap > .pagenum{margin-bottom:0}
 .pagereset{display:none;justify-self:end;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--fg-2);font:inherit;font-size:.74rem;font-weight:700;letter-spacing:.02em;cursor:pointer;margin-bottom:-6px}
@@ -342,7 +345,7 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   <div class="wrap">
     <button type="button" class="pagereset" data-page-reset title="Put every text color and box fill on this page back to its default. Undo in the palette brings them back.">Reset page colors</button>
     <p class="pagenum">Page 2 of 3 · Brand one · Value tier</p>
-    <div class="float"><h2><span class="t-theirs">Summit</span><span class="t-reveal" data-reveal-title="ede-reveal" hidden> <span class="t-vs">vs</span> <span class="t-ours">Every Day Extraordinary</span></span></h2></div>
+    <div class="float"><h2><span class="t-theirs">Summit</span></h2><div class="quotebox"><span class="qt">“Your quote goes here.”</span></div></div>
     <p class="lede">Same customer, same shelf slot, same small-bud grade. One can be bought anywhere. One only here.</p>
     <div class="stack">
       <div class="bb theirs">
@@ -694,7 +697,7 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   function saveTexts(){ try{ localStorage.setItem(TKEY, JSON.stringify(texts)); }catch(e){} }
   function slug(t){ return t.trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 40); }
   function keyed(seen, base){ var c = seen[base] || 0; seen[base] = c + 1; return c ? base + '#' + c : base; }
-  var EDITABLE = '.brandline b, .brandline span, .eyebrow, .hero h1 > span, .hero h1 > em, .hero .lede, .col .kicker, .col h3, .col li > span, .col .punch, .logos span, .tagline, .pagenum, .page > .wrap > .lede, .float h2 .t-theirs, .float h2 .t-ours, .float h2 .t-vs, .float h2 .t-or, .bb-head .kicker, .bb-head b:not([data-brand-name]), .bb-head .spec > span, .pill, .attr > .t, .attrs .attr > b, .verdict > b, .verdict > span, .foot > span';
+  var EDITABLE = '.brandline b, .brandline span, .eyebrow, .hero h1 > span, .hero h1 > em, .hero .lede, .col .kicker, .col h3, .col li > span, .col .punch, .logos span, .tagline, .pagenum, .page > .wrap > .lede, .float h2 .t-theirs, .float h2 .t-ours, .float h2 .t-vs, .float h2 .t-or, .quotebox .qt, .bb-head .kicker, .bb-head b:not([data-brand-name]), .bb-head .spec > span, .pill, .attr > .t, .attrs .attr > b, .verdict > b, .verdict > span, .foot > span';
   var editEls = [], legacy = { cur: {}, old: {} };  /* index keys used by earlier versions of this page */
   document.querySelectorAll('.topbar, .page').forEach(function(pg){
     var id = pg.id || 'top', seen = {}, list = [];
@@ -822,7 +825,7 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   if(alias(fills)) saveFills();
   document.querySelectorAll('.topbar, .page').forEach(function(pg){
     var id = pg.id || 'top', seen = {};
-    pg.querySelectorAll('.pill, .attr, .col, .bb, .verdict').forEach(function(box){
+    pg.querySelectorAll('.pill, .attr, .col, .bb, .verdict, .quotebox').forEach(function(box){
       var t = box.matches('[data-edit]') ? box : box.querySelector('[data-edit]');
       var k = keyed(seen, id + ':' + box.className.split(' ')[0] + ':' + slug(t ? originals[t.dataset.edit] : ''));
       box.dataset.box = k;
