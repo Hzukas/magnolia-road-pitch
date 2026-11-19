@@ -1,8 +1,8 @@
 {
   "mr": "version",
   "v": 1,
-  "name": "Magnolia Road 11/18/2026",
-  "saved": "2026-11-18T21:59:12.366Z",
+  "name": "Published 11/19/2026, 11:43:26 AM",
+  "saved": "2026-11-19T18:43:26.977Z",
   "texts": {
     "price-war:your exclusive brand offerings sold only": "Your Exclusive Brand offerings sold only at Magnolia Road, targeted at a specific customer segment to provide value vs your competitors.",
     "price-war:what it costs you": "GAME THEORY RESULT - real world?",
@@ -19,7 +19,8 @@
     "price-war:current tactic": "CONFLICT OF INTEREST",
     "price-war:you cannot discount your way to safety": "A store can grow revenue and DIE          Margin $$$ are Oxygen",
     "price-war:you win only on the days you are the che": "You only 'win' on the days you are the cheapest, and the margin goes with it",
-    "every-day-extraordinary:your quote goes here": "“When everyone's super... no one will be” - Syndrome, The Incredibles"
+    "every-day-extraordinary:your quote goes here": "“When everyone's super... no one will be” - Syndrome, The Incredibles",
+    "quarter:magnolia road#1": "<span class=\"rt\" style=\"font-size:130%\">Magnolia Road</span>"
   },
   "colors": {
     "price-war:price war": "#7fc24a",
@@ -101,15 +102,16 @@
     "every-day-extraordinary:most dispensaries in colorado": 150,
     "every-day-extraordinary:competitor promos": 170,
     "every-day-extraordinary:yes on every menu app": 150,
-    "every-day-extraordinary:magnolia road only": 140,
-    "every-day-extraordinary:magnolia road": 140,
-    "every-day-extraordinary:magnolia road#1": 150,
-    "every-day-extraordinary:no nothing to compare it to": 140,
-    "quarter:magnolia road": 150,
-    "quarter:magnolia road only": 140,
+    "every-day-extraordinary:magnolia road only": 160,
+    "every-day-extraordinary:magnolia road": 170,
+    "every-day-extraordinary:magnolia road#1": 180,
+    "every-day-extraordinary:no nothing to compare it to": 160,
+    "quarter:magnolia road": 170,
+    "quarter:magnolia road only": 160,
     "price-war:be a destination": 220,
     "price-war:create captive customers": 180,
-    "every-day-extraordinary:your quote goes here": 130
+    "every-day-extraordinary:your quote goes here": 130,
+    "quarter:no nothing to compare it to": 160
   },
   "fonts": {
     "price-war:driving foot traffic and customer retent": "Georgia,\"Times New Roman\",serif",
@@ -188,8 +190,14 @@
   },
   "pos": {
     "every-day-extraordinary:quotebox:your quote goes here": {
-      "x": 251,
-      "y": 15
+      "x": 250,
+      "y": 4
+    }
+  },
+  "dims": {
+    "quarter:attr:who sets the price#1": {
+      "w": 0,
+      "h": 24
     }
   },
   "pricing": {
