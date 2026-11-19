@@ -101,6 +101,8 @@ body.editor .edithint,body.editor .foot button{display:inline}
 .float h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:800;line-height:1.1;margin:0}
 .quotebox{flex:0 1 auto;max-width:100%;min-width:0;border:1px dashed rgba(185,158,227,.5);border-radius:12px;padding:10px 16px;background:rgba(185,158,227,.06)}
 .quotebox .qt{display:block;font-style:italic;font-size:1.05rem;line-height:1.4;color:var(--fg-2)}
+.float.stuck .quotebox{display:none}
+.float h2 [hidden]{display:none}
 .float h2 .t-reveal[hidden]{display:none}
 .page > .wrap > .pagenum{margin-bottom:0}
 .pagereset{display:none;justify-self:end;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--fg-2);font:inherit;font-size:.74rem;font-weight:700;letter-spacing:.02em;cursor:pointer;margin-bottom:-6px}
@@ -380,7 +382,7 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   <div class="wrap">
     <button type="button" class="pagereset" data-page-reset title="Put every text color and box fill on this page back to its default. Undo in the palette brings them back.">Reset page colors</button>
     <p class="pagenum">Page 2 of 3 · Brand one · Value tier</p>
-    <div class="float"><h2><span class="t-theirs">Summit</span></h2><div class="quotebox"><span class="qt">“Your quote goes here.”</span></div></div>
+    <div class="float"><h2><span class="t-theirs">Summit</span><span class="t-ours t-alt" hidden>Every Day Extraordinary</span></h2><div class="quotebox"><span class="qt">“Your quote goes here.”</span></div></div>
     <p class="lede">Same customer, same shelf slot, same small-bud grade. One can be bought anywhere. One only here.</p>
     <div class="stack">
       <div class="bb theirs">
@@ -794,7 +796,7 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   function setRich(el, v){ if(/<span/i.test(v)) el.innerHTML = cleanRich(v); else el.textContent = v; }
   function slug(t){ return t.trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 40); }
   function keyed(seen, base){ var c = seen[base] || 0; seen[base] = c + 1; return c ? base + '#' + c : base; }
-  var EDITABLE = '.brandline b, .brandline span, .eyebrow, .hero h1 > span, .hero h1 > em, .hero .lede, .col .kicker, .col h3, .col li > span, .col .punch, .logos span, .tagline, .pagenum, .page > .wrap > .lede, .float h2 .t-theirs, .float h2 .t-ours, .float h2 .t-vs, .float h2 .t-or, .quotebox .qt, .bb-head .kicker, .bb-head b:not([data-brand-name]), .bb-head .spec > span, .pill, .attr > .t, .attrs .attr > b, .verdict > b, .verdict > span, .foot > span';
+  var EDITABLE = '.brandline b, .brandline span, .eyebrow, .hero h1 > span, .hero h1 > em, .hero .lede, .col .kicker, .col h3, .col li > span, .col .punch, .logos span, .tagline, .pagenum, .page > .wrap > .lede, .float h2 .t-theirs, .float h2 .t-ours:not(.t-alt), .float h2 .t-vs, .float h2 .t-or, .quotebox .qt, .bb-head .kicker, .bb-head b:not([data-brand-name]), .bb-head .spec > span, .pill, .attr > .t, .attrs .attr > b, .verdict > b, .verdict > span, .foot > span';
   var editEls = [], legacy = { cur: {}, old: {} };  /* index keys used by earlier versions of this page */
   document.querySelectorAll('.topbar, .page').forEach(function(pg){
     var id = pg.id || 'top', seen = {}, list = [];
@@ -1288,17 +1290,35 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   document.querySelectorAll('[data-reset]').forEach(function(b){
     b.addEventListener('click', function(){ reset(); fill(); render(); resetTexts(); });
   });
+  function setReveal(b, open, scroll){
+    var box = document.getElementById(b.dataset.reveal);
+    box.hidden = !open;
+    b.setAttribute('aria-expanded', String(open));
+    b.querySelector('span').textContent = open ? b.dataset.hide : b.dataset.show;
+    document.querySelectorAll('[data-reveal-title="' + b.dataset.reveal + '"]').forEach(function(t){ t.hidden = !open; });
+    if(open && scroll && box.scrollIntoView){ box.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
   document.querySelectorAll('[data-reveal]').forEach(function(b){
-    b.addEventListener('click', function(){
-      var box = document.getElementById(b.dataset.reveal);
-      var open = box.hidden;
-      box.hidden = !open;
-      b.setAttribute('aria-expanded', String(open));
-      b.querySelector('span').textContent = open ? b.dataset.hide : b.dataset.show;
-      document.querySelectorAll('[data-reveal-title="' + b.dataset.reveal + '"]').forEach(function(t){ t.hidden = !open; });
-      if(open && box.scrollIntoView){ box.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-    });
+    b.addEventListener('click', function(){ setReveal(b, document.getElementById(b.dataset.reveal).hidden, true); });
+    /* visitors see every alternative straight away; editors keep the reveal step */
+    if(!EDITOR) setReveal(b, true, false);
   });
+  /* page 2's sticky title: "Summit" while the Summit window is in view, "Every Day Extraordinary" once that
+     section reaches the top; the quote only shows while the title bar sits in its natural place */
+  (function(){
+    var fl = document.querySelector('#every-day-extraordinary .float'); if(!fl) return;
+    var theirs = fl.querySelector('.t-theirs'), alt = fl.querySelector('.t-alt'), ede = document.getElementById('ede-reveal'), topbar = document.querySelector('.topbar');
+    function update(){
+      var fr = fl.getBoundingClientRect(), barBottom = topbar ? topbar.getBoundingClientRect().bottom : 0;
+      fl.classList.toggle('stuck', fr.top <= barBottom + 1);
+      var onAlt = !ede.hidden && ede.getBoundingClientRect().top <= fr.bottom + 4;
+      theirs.hidden = onAlt; alt.hidden = !onAlt;
+    }
+    window.addEventListener('scroll', update, true);
+    window.addEventListener('resize', update);
+    document.querySelectorAll('[data-reveal]').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(update, 0); }); });
+    update();
+  })();
 })();
 </script>
 </body>
