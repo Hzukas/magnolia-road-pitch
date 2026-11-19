@@ -410,8 +410,8 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
       <div class="bb ours">
         <div class="label" data-gallery="ede"><img src="img/ede.jpg" alt="Every Day Extraordinary label: gold engraved mountains over a lake, one ounce, 28 grams, only at Magnolia Road" width="1400" height="467"><button type="button" class="lnav prev" data-nav="-1" aria-label="Previous label option"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 5 8l5 5"/></svg></button><button type="button" class="lnav next" data-nav="1" aria-label="Next label option"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 3 5 5-5 5"/></svg></button><span class="ldots" aria-hidden="true"></span></div>
         <div class="bb-head">
-          <div class="name"><span class="kicker">What they buy instead</span><div class="row"><b>Every Day Extraordinary</b><span class="spec"><span>28 g full oz</span><i>·</i><span>Small buds, same grade</span></span></div></div>
-          <div class="right"><span class="pill ours">Only at Magnolia Road</span></div>
+          <div class="name"><span class="kicker">What they buy instead</span><div class="row"><b>Every Day Extraordinary</b><span class="spec"><span data-size-label>28 g full oz</span><i>·</i><span>Small buds, same grade</span></span></div></div>
+          <div class="right"><span class="sizes" role="group" aria-label="Every Day Extraordinary size"><button type="button" data-ede-size="14" aria-pressed="false">14 g</button><button type="button" data-ede-size="28" aria-pressed="true">28 g</button></span><span class="pill ours">Only at Magnolia Road</span></div>
         </div>
         <div class="attrs">
           <div class="attr win"><span class="t">Where it's sold</span><b>Magnolia Road only</b></div>
@@ -655,12 +655,13 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   window.__calcMargin = calc;
 
   var DEFAULTS = {
-    ede28:    { cost:40, otd:84 },
+    ede14:    { cost:18, otd:40 },
+    ede28:    { cost:35, otd:79 },
     summit14: { cost:20, otd:45 },
     alt7:     { cost:17.25, otd:40 },
     dro7:     { cost:18.75, otd:40 }
   };
-  var GRAMS = { ede28:28, summit14:14, alt7:7, dro7:7 };
+  var GRAMS = { ede14:14, ede28:28, summit14:14, alt7:7, dro7:7 };
   var BRANDS = { inferno:{ name:'Inferno' }, rainforest:{ name:'Rain Forest' } };
   /* label artwork options; the arrows on a frame appear when a set has more than one */
   var LABELS = {
@@ -685,13 +686,21 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   var pctF = function(p){ return (p*100).toFixed(1) + '%'; };
   var usd0 = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0});
 
-  var vals, brand, labelIdx;
+  var vals, brand, labelIdx, edeSize;
+  function isOld(v, c, o){ return !!v && String(v.cost) === String(c) && String(v.otd) === String(o); }
   function load(){
-    try{ var raw = localStorage.getItem(KEY); if(raw){ var o = JSON.parse(raw); if(o && o.vals){ vals = o.vals; if(!vals.ede28) vals.ede28 = JSON.parse(JSON.stringify(DEFAULTS.ede28)); brand = BRANDS[o.brand] ? o.brand : 'inferno'; labelIdx = (o.labels && typeof o.labels === 'object') ? o.labels : {}; return; } } }catch(e){}
+    try{ var raw = localStorage.getItem(KEY); if(raw){ var o = JSON.parse(raw); if(o && o.vals){
+      vals = o.vals;
+      /* earlier default figures saved in a browser move to the current ones; anything typed by hand is kept */
+      if(!vals.ede28 || isOld(vals.ede28, 40, 84)){ vals.ede28 = Object.assign({}, vals.ede28 || {}, DEFAULTS.ede28); }
+      if(!vals.ede14 || isOld(vals.ede14, 20, 42)){ vals.ede14 = Object.assign({}, vals.ede14 || {}, DEFAULTS.ede14); }
+      brand = BRANDS[o.brand] ? o.brand : 'inferno'; labelIdx = (o.labels && typeof o.labels === 'object') ? o.labels : {};
+      edeSize = o.edeSize === '14' ? '14' : '28';
+      return; } } }catch(e){}
     reset();
   }
-  function reset(){ vals = JSON.parse(JSON.stringify(DEFAULTS)); brand = 'inferno'; labelIdx = {}; }
-  function save(){ try{ localStorage.setItem(KEY, JSON.stringify({ vals: vals, brand: brand, labels: labelIdx })); }catch(e){} }
+  function reset(){ vals = JSON.parse(JSON.stringify(DEFAULTS)); brand = 'inferno'; labelIdx = {}; edeSize = '28'; }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify({ vals: vals, brand: brand, labels: labelIdx, edeSize: edeSize })); }catch(e){} }
   function gallerySet(f){ return f.dataset.gallery === 'brand' ? brand : f.dataset.gallery; }
   function renderGalleries(){
     document.querySelectorAll('[data-gallery]').forEach(function(f){
@@ -716,9 +725,12 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
       renderGalleries(); save();
     });
   });
-  function key(sku){ return sku === 'ede' ? 'ede28' : sku; }
+  function key(sku){ return sku === 'ede' ? 'ede' + edeSize : sku; }
 
   function fill(){
+    document.querySelectorAll('[data-ede-size]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.edeSize === edeSize)); });
+    var lbl = document.querySelector('[data-size-label]');
+    if(lbl) lbl.textContent = edeSize === '14' ? '14 g half oz' : '28 g full oz';
     document.querySelectorAll('input[data-sku]').forEach(function(i){
       var v = vals[key(i.dataset.sku)] || {};
       i.value = v[i.dataset.f] == null ? '' : v[i.dataset.f];
@@ -760,6 +772,9 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   document.querySelectorAll('[data-brand]').forEach(function(b){
     b.addEventListener('click', function(){ brand = b.dataset.brand; fill(); render(); });
   });
+  document.querySelectorAll('[data-ede-size]').forEach(function(b){
+    b.addEventListener('click', function(){ edeSize = b.dataset.edeSize; fill(); render(); });
+  });
   /* click-to-edit text anywhere on the page while unlocked, saved in this browser */
   /* keys are built from each element's original text, so reordering or adding elements keeps saved edits */
   var TKEY = 'mr-text-v4', texts = {}, originals = {};
@@ -796,7 +811,7 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
   function setRich(el, v){ if(/<span/i.test(v)) el.innerHTML = cleanRich(v); else el.textContent = v; }
   function slug(t){ return t.trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 40); }
   function keyed(seen, base){ var c = seen[base] || 0; seen[base] = c + 1; return c ? base + '#' + c : base; }
-  var EDITABLE = '.brandline b, .brandline span, .eyebrow, .hero h1 > span, .hero h1 > em, .hero .lede, .col .kicker, .col h3, .col li > span, .col .punch, .logos span, .tagline, .pagenum, .page > .wrap > .lede, .float h2 .t-theirs, .float h2 .t-ours:not(.t-alt), .float h2 .t-vs, .float h2 .t-or, .quotebox .qt, .bb-head .kicker, .bb-head b:not([data-brand-name]), .bb-head .spec > span, .pill, .attr > .t, .attrs .attr > b, .verdict > b, .verdict > span, .foot > span';
+  var EDITABLE = '.brandline b, .brandline span, .eyebrow, .hero h1 > span, .hero h1 > em, .hero .lede, .col .kicker, .col h3, .col li > span, .col .punch, .logos span, .tagline, .pagenum, .page > .wrap > .lede, .float h2 .t-theirs, .float h2 .t-ours:not(.t-alt), .float h2 .t-vs, .float h2 .t-or, .quotebox .qt, .bb-head .kicker, .bb-head b:not([data-brand-name]), .bb-head .spec > span:not([data-size-label]), .pill, .attr > .t, .attrs .attr > b, .verdict > b, .verdict > span, .foot > span';
   var editEls = [], legacy = { cur: {}, old: {} };  /* index keys used by earlier versions of this page */
   document.querySelectorAll('.topbar, .page').forEach(function(pg){
     var id = pg.id || 'top', seen = {}, list = [];

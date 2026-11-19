@@ -2,7 +2,7 @@
   "mr": "version",
   "v": 1,
   "name": "Published 11/19/2026, 11:47:14 AM",
-  "saved": "2026-11-19T18:47:14.541Z",
+  "saved": "2026-11-19T18:54:47.154Z",
   "texts": {
     "price-war:your exclusive brand offerings sold only": "Your Exclusive Brand offerings sold only at Magnolia Road, targeted at a specific customer segment to provide value vs your competitors.",
     "price-war:what it costs you": "GAME THEORY RESULT - real world?",
@@ -224,12 +224,12 @@
   "pricing": {
     "vals": {
       "ede14": {
-        "cost": 20,
-        "otd": 42
+        "cost": 18,
+        "otd": 40
       },
       "ede28": {
-        "cost": 40,
-        "otd": 84
+        "cost": 35,
+        "otd": 79
       },
       "summit14": {
         "cost": 20,
@@ -250,6 +250,7 @@
       "ede": 1,
       "inferno": 0,
       "rainforest": 0
-    }
+    },
+    "edeSize": "28"
   }
 }
