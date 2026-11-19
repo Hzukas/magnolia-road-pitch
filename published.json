@@ -1,8 +1,8 @@
 {
   "mr": "version",
   "v": 1,
-  "name": "Published 11/19/2026, 11:43:26 AM",
-  "saved": "2026-11-19T18:43:26.977Z",
+  "name": "Published 11/19/2026, 11:47:14 AM",
+  "saved": "2026-11-19T18:47:14.541Z",
   "texts": {
     "price-war:your exclusive brand offerings sold only": "Your Exclusive Brand offerings sold only at Magnolia Road, targeted at a specific customer segment to provide value vs your competitors.",
     "price-war:what it costs you": "GAME THEORY RESULT - real world?",
@@ -69,7 +69,15 @@
     "quarter:out the door": "#f3ead8",
     "quarter:monthly volume vs monthly gross margin": "#f3ead8",
     "quarter:gross margin": "#f3ead8",
-    "every-day-extraordinary:your quote goes here": "#7fc24a"
+    "every-day-extraordinary:your quote goes here": "#7fc24a",
+    "every-day-extraordinary:where it s sold#1": "#4cc3e3",
+    "every-day-extraordinary:loyalty goes to#1": "#4cc3e3",
+    "every-day-extraordinary:price shoppable online#1": "#4cc3e3",
+    "every-day-extraordinary:who sets the price#1": "#4cc3e3",
+    "quarter:where it s sold#1": "#4cc3e3",
+    "quarter:loyalty goes to#1": "#4cc3e3",
+    "quarter:who sets the price#1": "#4cc3e3",
+    "quarter:price shoppable online#1": "#4cc3e3"
   },
   "sizes": {
     "price-war:driving foot traffic and customer retent": 260,
@@ -111,7 +119,9 @@
     "price-war:be a destination": 220,
     "price-war:create captive customers": 180,
     "every-day-extraordinary:your quote goes here": 130,
-    "quarter:no nothing to compare it to": 160
+    "quarter:no nothing to compare it to": 160,
+    "quarter:only at magnolia road": 110,
+    "every-day-extraordinary:only at magnolia road": 120
   },
   "fonts": {
     "price-war:driving foot traffic and customer retent": "Georgia,\"Times New Roman\",serif",
@@ -166,7 +176,8 @@
     "quarter:attr:purchase price": "#825017",
     "quarter:attr:out the door": "#825017",
     "every-day-extraordinary:bb:what they buy instead": "rgba(127,194,74,.16)",
-    "quarter:bb:what they buy instead": "rgba(127,194,74,.16)"
+    "quarter:bb:what they buy instead": "rgba(127,194,74,.16)",
+    "every-day-extraordinary:pill:only at magnolia road": "rgba(127,194,74,.16)"
   },
   "borders": {
     "every-day-extraordinary:bb:what they buy today": "#f0943a",
@@ -186,7 +197,17 @@
     "quarter:attr:purchase price#1": "#8f7fa3",
     "quarter:attr:out the door#1": "#8f7fa3",
     "quarter:attr:monthly volume vs monthly gross margin#1": "#8f7fa3",
-    "quarter:attr:gross margin#1": "#8f7fa3"
+    "quarter:attr:gross margin#1": "#8f7fa3",
+    "quarter:pill:only at magnolia road": "#4cc3e3",
+    "every-day-extraordinary:pill:only at magnolia road": "#f3ead8",
+    "every-day-extraordinary:attr:where it s sold#1": "#4cc3e3",
+    "every-day-extraordinary:attr:loyalty goes to#1": "#4cc3e3",
+    "every-day-extraordinary:attr:price shoppable online#1": "#4cc3e3",
+    "every-day-extraordinary:attr:who sets the price#1": "#4cc3e3",
+    "quarter:attr:where it s sold#1": "#4cc3e3",
+    "quarter:attr:loyalty goes to#1": "#4cc3e3",
+    "quarter:attr:who sets the price#1": "#4cc3e3",
+    "quarter:attr:price shoppable online#1": "#4cc3e3"
   },
   "pos": {
     "every-day-extraordinary:quotebox:your quote goes here": {
