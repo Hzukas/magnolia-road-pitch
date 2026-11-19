@@ -65,13 +65,27 @@ button{font:inherit}
 .lock[aria-pressed="true"]{border-color:var(--green);color:var(--green);background:rgba(127,194,74,.12)}
 .lock[aria-pressed="true"] .i-locked{display:none}
 .lock[aria-pressed="true"] .i-open{display:inline}
-.vers{display:none;flex:none;align-items:center;gap:6px}
+.vers{display:none;flex:none;align-items:center;position:relative}
 body.editor.editing .vers{display:inline-flex}
-.vers button,.vers .loadver{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg-2);font:inherit;font-size:.74rem;font-weight:700;line-height:1;cursor:pointer;white-space:nowrap}
-.vers button:hover,.vers button:focus-visible,.vers .loadver:hover,.vers .loadver:focus-within{color:var(--fg);background:var(--panel);outline:none}
-.vers .loadver{position:relative}
-.vers input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
-@media (max-width:820px){.vers{display:none!important}}
+.gear{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg-2);display:grid;place-items:center;padding:0;cursor:pointer}
+.gear:hover,.gear:focus-visible,.gear[aria-expanded="true"]{color:var(--fg);background:var(--panel);border-color:var(--fg-2);outline:none}
+.gearmenu{position:absolute;top:calc(100% + 8px);right:0;z-index:30;width:min(320px,calc(100vw - 24px));display:grid;gap:8px;padding:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.5);font-size:.8rem;color:var(--fg-2)}
+.gearmenu[hidden]{display:none}
+.gearmenu > b{font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.gearmenu > b:first-child{margin-top:0}
+.gearmenu button,.gearmenu .loadver{display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit;font-size:.8rem;font-weight:600;line-height:1;cursor:pointer;white-space:nowrap}
+.gearmenu button:hover,.gearmenu button:focus-visible,.gearmenu .loadver:hover,.gearmenu .loadver:focus-within{border-color:var(--fg-2);outline:none}
+.gearmenu button.primary{background:var(--green);border-color:var(--green);color:#0f1a0a;font-weight:700}
+.gearmenu button.primary:disabled{opacity:.6;cursor:progress}
+.gearmenu .loadver{position:relative}
+.gearmenu .loadver input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.gearmenu .hint{font-size:.72rem;color:var(--muted);line-height:1.4}
+.gearmenu .hint.ok{color:var(--green)}
+.gearmenu .hint.bad{color:var(--rose)}
+.gearmenu details{border-top:1px solid var(--line);padding-top:8px;display:grid;gap:6px}
+.gearmenu summary{cursor:pointer;font-weight:600;color:var(--fg-2)}
+.gearmenu input[type="password"]{width:100%;box-sizing:border-box;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit;font-size:.8rem}
+.gearmenu .row{display:flex;gap:6px}
 @media (max-width:520px){.lock span{display:none}.lock{padding:7px 9px}}
 .lock,.vers,.edithint,.foot button{display:none}
 body.editor .lock{display:inline-flex}
@@ -293,9 +307,22 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
       <span>Locked</span>
     </button>
     <span class="vers" id="vers">
-      <button type="button" id="saveVer" title="Download every edit on this page (text, colors, sizes, fonts, fills, labels, pricing) as a version file">Save version</button>
-      <label class="loadver" title="Open a saved version file and apply it in this browser"><input type="file" id="loadVer" accept="application/json,.json">Load version</label>
-      <button type="button" id="copyLink" title="Copy a link that opens this page with these edits in any browser">Copy link</button>
+      <button type="button" class="gear" id="gearBtn" aria-expanded="false" aria-controls="gearMenu" title="Versions and publishing"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2.2"/><path d="M8 1.5v1.8M8 12.7v1.8M1.5 8h1.8M12.7 8h1.8M3.4 3.4l1.3 1.3M11.3 11.3l1.3 1.3M3.4 12.6l1.3-1.3M11.3 4.7l1.3-1.3"/></svg></button>
+      <div class="gearmenu" id="gearMenu" hidden role="dialog" aria-label="Versions and publishing">
+        <b>This browser's edits</b>
+        <button type="button" id="saveVer" title="Download every edit on this page (text, colors, sizes, fonts, fills, labels, pricing) as a version file">Save version</button>
+        <label class="loadver" title="Open a saved version file and apply it in this browser"><input type="file" id="loadVer" accept="application/json,.json">Load version</label>
+        <button type="button" id="copyLink" title="Copy a link that opens this page with these edits in any browser">Copy link</button>
+        <b>Client site</b>
+        <button type="button" class="primary" id="publishBtn" title="Make what you see now the look every visitor of the live site gets">Publish to client</button>
+        <span class="hint" id="pubStatus">Sends these edits to hzukas.github.io/magnolia-road-pitch. Visitors see them on their next load.</span>
+        <details id="tokenBox">
+          <summary>GitHub token</summary>
+          <input type="password" id="ghToken" autocomplete="off" placeholder="paste a fine-grained token" aria-label="GitHub token">
+          <span class="row"><button type="button" id="ghSave">Save token</button><button type="button" id="ghClear">Clear</button></span>
+          <span class="hint">Kept only in this browser. Create it at github.com → Settings → Developer settings → Fine-grained tokens: repository access to Hzukas/magnolia-road-pitch and Hzukas/mag-rd-branding, permission Contents: Read and write.</span>
+        </details>
+      </div>
     </span>
   </div>
 </header>
@@ -859,6 +886,55 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
     new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()
       .then(function(buf){ cb(base + '#v=1.d.' + b64uEnc(new Uint8Array(buf))); }, plain);
   }
+  /* gear menu */
+  var gearBtn = document.getElementById('gearBtn'), gearMenu = document.getElementById('gearMenu');
+  function setGear(open){ gearMenu.hidden = !open; gearBtn.setAttribute('aria-expanded', String(open)); }
+  gearBtn.addEventListener('click', function(){ setGear(gearMenu.hidden); });
+  document.addEventListener('click', function(e){ if(!gearMenu.hidden && !gearMenu.contains(e.target) && e.target !== gearBtn && !gearBtn.contains(e.target)) setGear(false); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !gearMenu.hidden) setGear(false); });
+
+  /* publish: write published.json straight into the site repo (and the source repo) with a token kept in this browser */
+  var GHKEY = 'mr-gh-token', GH_REPOS = ['Hzukas/magnolia-road-pitch', 'Hzukas/mag-rd-branding'];
+  var pubBtn = document.getElementById('publishBtn'), pubStatus = document.getElementById('pubStatus'), tokenBox = document.getElementById('tokenBox'), ghToken = document.getElementById('ghToken');
+  function ghGet(){ try{ return localStorage.getItem(GHKEY) || ''; }catch(e){ return ''; } }
+  function pubSay(msg, cls){ pubStatus.textContent = msg; pubStatus.className = 'hint' + (cls ? ' ' + cls : ''); }
+  function refreshToken(){ var has = !!ghGet(); ghToken.value = has ? '••••••••••••' : ''; ghToken.dataset.masked = has ? '1' : ''; tokenBox.querySelector('summary').textContent = has ? 'GitHub token (saved)' : 'GitHub token (needed to publish)'; }
+  ghToken.addEventListener('focus', function(){ if(ghToken.dataset.masked){ ghToken.value = ''; ghToken.dataset.masked = ''; } });
+  document.getElementById('ghSave').addEventListener('click', function(){
+    var t = ghToken.value.trim(); if(!t || /^•+$/.test(t)){ refreshToken(); return; }
+    try{ localStorage.setItem(GHKEY, t); }catch(e){} refreshToken(); pubSay('Token saved in this browser.', 'ok');
+  });
+  document.getElementById('ghClear').addEventListener('click', function(){ try{ localStorage.removeItem(GHKEY); }catch(e){} refreshToken(); pubSay('Token cleared.'); });
+  refreshToken();
+  function b64std(str){ var bytes = new TextEncoder().encode(str), t = ''; for(var i = 0; i < bytes.length; i++) t += String.fromCharCode(bytes[i]); return btoa(t); }
+  function ghPut(repo, token, body, message){
+    var url = 'https://api.github.com/repos/' + repo + '/contents/published.json';
+    var headers = { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' };
+    return fetch(url + '?ref=main', { headers: headers, cache: 'no-store' })
+      .then(function(r){ if(r.status === 404) return null; if(!r.ok) throw new Error(repo + ': ' + r.status + (r.status === 401 ? ' (token rejected)' : r.status === 403 ? ' (token lacks access)' : '')); return r.json(); })
+      .then(function(cur){
+        var payload = { message: message, content: b64std(body), branch: 'main' };
+        if(cur && cur.sha) payload.sha = cur.sha;
+        return fetch(url, { method: 'PUT', headers: headers, body: JSON.stringify(payload) });
+      })
+      .then(function(r){ if(!r.ok) throw new Error(repo + ': ' + r.status + (r.status === 403 || r.status === 404 ? ' (token cannot write to this repo)' : '')); return r.json(); });
+  }
+  pubBtn.addEventListener('click', function(){
+    if(typeof fetch !== 'function'){ pubSay('This browser cannot publish.', 'bad'); return; }
+    var token = ghGet();
+    if(!token){ tokenBox.open = true; pubSay('Paste a GitHub token below first, then publish.', 'bad'); ghToken.focus(); return; }
+    var v = currentVersion('Published ' + new Date().toLocaleString()); v.saved = new Date().toISOString();
+    var body = JSON.stringify(v, null, 2) + '\n', msg = 'Publish from the page: ' + v.saved;
+    pubBtn.disabled = true; pubSay('Publishing…');
+    ghPut(GH_REPOS[0], token, body, msg).then(function(){
+      try{ localStorage.setItem(PUBSEEN, v.saved); }catch(e){}
+      pubSay('Published. Visitors see it within about a minute, on their next load.', 'ok');
+      return ghPut(GH_REPOS[1], token, body, msg).catch(function(){ pubSay('Published to the site. (Could not also save a copy in the source repo; that is fine.)', 'ok'); });
+    }).catch(function(err){
+      pubSay('Publish failed: ' + (err && err.message ? err.message : err), 'bad');
+    }).then(function(){ pubBtn.disabled = false; });
+  });
+
   document.getElementById('copyLink').addEventListener('click', function(){
     var btn = this;
     versionLink(currentVersion(''), function(url){
