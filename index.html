@@ -54,6 +54,7 @@ button{font:inherit}
 .pager{margin-left:auto;display:flex;align-items:center;gap:6px}
 .pager a{text-decoration:none;color:var(--fg-2);font-size:.8rem;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
 .pager a:hover,.pager a:focus-visible{background:var(--panel);color:var(--fg);outline:none}
+.pager a.active{background:rgba(127,194,74,.14);border-color:var(--green);color:var(--green)}
 .pager a.num{display:none}
 @media (max-width:860px){.pager a.lbl{display:none}.pager a.num{display:inline-block;padding:7px 11px;border-color:var(--line)}}
 /* while unlocked the version buttons need the room, so the pager goes numeric sooner and the subtitle steps aside */
@@ -1318,6 +1319,23 @@ body.editing .moved{outline:1px dashed rgba(243,234,216,.25);outline-offset:2px}
     /* visitors see every alternative straight away; editors keep the reveal step */
     if(!EDITOR) setReveal(b, true, false);
   });
+  /* top bar: the link for the page under the bar is highlighted while scrolling */
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.pager a[href^="#"]')), pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+    var topbar = document.querySelector('.topbar'); if(!links.length || !pages.length) return;
+    var currentId = '';
+    function update(){
+      var line = (topbar ? topbar.getBoundingClientRect().bottom : 0) + Math.max(40, window.innerHeight * 0.25), id = pages[0].id;
+      for(var i = 0; i < pages.length; i++){ if(pages[i].getBoundingClientRect().top <= line) id = pages[i].id; }
+      if(id === currentId) return;
+      currentId = id;
+      links.forEach(function(a){ var on = a.getAttribute('href') === '#' + id; a.classList.toggle('active', on); if(on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    }
+    window.addEventListener('scroll', update, true);
+    window.addEventListener('resize', update);
+    window.addEventListener('hashchange', function(){ setTimeout(update, 50); });
+    update();
+  })();
   /* page 2's sticky title: "Summit" while the Summit window is in view, "Every Day Extraordinary" once that
      section reaches the top; the quote only shows while the title bar sits in its natural place */
   (function(){
