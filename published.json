@@ -1,8 +1,8 @@
 {
   "mr": "version",
   "v": 1,
-  "name": "Published 11/20/2026, 4:31:52 PM",
-  "saved": "2026-11-20T23:31:52.703Z",
+  "name": "Published 11/20/2026, 4:33:58 PM",
+  "saved": "2026-11-20T23:33:58.756Z",
   "texts": {
     "price-war:your exclusive brand offerings sold only": "Your Exclusive Brand offerings sold only at Magnolia Road, targeted at a specific customer segment to provide value vs your competitors.",
     "price-war:what it costs you": "GAME THEORY RESULT - real world?",
@@ -17,7 +17,7 @@
     "price-war:nobody wins a race to the bottom": "Race to the bottom - Nobody Wins",
     "quarter:monthly volume vs monthly gross margin": "Monthly volume & gross margin",
     "price-war:current tactic": "CONFLICT OF INTEREST",
-    "price-war:you cannot discount your way to safety": "A store can grow revenue and DIE          Margin $$$ are Oxygen",
+    "price-war:you cannot discount your way to safety": "A store can grow revenue and DIE.  Margin $$$ are Oxygen",
     "price-war:you win only on the days you are the che": "You only 'win' on the days you are the cheapest, and the margin goes with it",
     "every-day-extraordinary:your quote goes here": "“When everyone's super... no one will be” - Syndrome, The Incredibles",
     "quarter:magnolia road#1": "<span class=\"rt\" style=\"font-size:130%\">Magnolia Road</span>",
@@ -154,7 +154,7 @@
   },
   "fills": {
     "price-war:col:the goal": "#0047d6",
-    "price-war:col:what it costs you": "#fad900",
+    "price-war:col:what it costs you": "#fff266",
     "price-war:col:current tactic": "#5b9a28",
     "quarter:bb:what they buy today": "rgba(227,182,76,.16)",
     "every-day-extraordinary:bb:what they buy today": "rgba(227,182,76,.16)",
@@ -208,7 +208,9 @@
     "quarter:attr:where it s sold#1": "#4cc3e3",
     "quarter:attr:loyalty goes to#1": "#4cc3e3",
     "quarter:attr:who sets the price#1": "#4cc3e3",
-    "quarter:attr:price shoppable online#1": "#4cc3e3"
+    "quarter:attr:price shoppable online#1": "#4cc3e3",
+    "price-war:col:the goal": "transparent",
+    "price-war:col:what it costs you": "#ffdc8a"
   },
   "pos": {
     "every-day-extraordinary:quotebox:your quote goes here": {
