@@ -1,8 +1,8 @@
 {
   "mr": "version",
   "v": 1,
-  "name": "Published 11/19/2026, 11:47:14 AM",
-  "saved": "2026-11-19T18:54:47.154Z",
+  "name": "Published 11/20/2026, 4:31:52 PM",
+  "saved": "2026-11-20T23:31:52.703Z",
   "texts": {
     "price-war:your exclusive brand offerings sold only": "Your Exclusive Brand offerings sold only at Magnolia Road, targeted at a specific customer segment to provide value vs your competitors.",
     "price-war:what it costs you": "GAME THEORY RESULT - real world?",
@@ -20,7 +20,8 @@
     "price-war:you cannot discount your way to safety": "A store can grow revenue and DIE          Margin $$$ are Oxygen",
     "price-war:you win only on the days you are the che": "You only 'win' on the days you are the cheapest, and the margin goes with it",
     "every-day-extraordinary:your quote goes here": "“When everyone's super... no one will be” - Syndrome, The Incredibles",
-    "quarter:magnolia road#1": "<span class=\"rt\" style=\"font-size:130%\">Magnolia Road</span>"
+    "quarter:magnolia road#1": "<span class=\"rt\" style=\"font-size:130%\">Magnolia Road</span>",
+    "price-war:all packaged brands are in conflict with": "All packaged brands are in conflict with their retail partner's financial success"
   },
   "colors": {
     "price-war:price war": "#7fc24a",
@@ -228,8 +229,8 @@
         "otd": 40
       },
       "ede28": {
-        "cost": 35,
-        "otd": 79
+        "cost": "18",
+        "otd": "40"
       },
       "summit14": {
         "cost": 20,
@@ -247,7 +248,7 @@
     },
     "brand": "inferno",
     "labels": {
-      "ede": 1,
+      "ede": 2,
       "inferno": 0,
       "rainforest": 0
     },
